@@ -5,7 +5,7 @@ require 'figaro'
 require 'logger'
 require 'rack/session'
 
-module Credence
+module No2Date
   # Configuration for the API
   class App < Roda
     plugin :environments
