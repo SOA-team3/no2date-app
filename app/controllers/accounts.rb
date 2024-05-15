@@ -6,7 +6,7 @@ require_relative './app'
 module No2Date
   # Web controller for No2Date API
   class App < Roda
-    route('accounts') do |routing|
+    route('account') do |routing|
       routing.on do
         # GET /account/login
         routing.get String do |username|
