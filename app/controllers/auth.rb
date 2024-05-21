@@ -11,7 +11,8 @@ module No2Date
       routing.is 'login' do
         # GET /auth/login
         routing.get do
-          view :login
+          # view :login
+          view :signin
         end
 
         # POST /auth/login
