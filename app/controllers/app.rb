@@ -10,19 +10,18 @@ module No2Date
 
     # plugin :assets, css: 'style.css', path: 'app/presentation/assets'
     plugin :assets,
-      css: ['nucleo-icons.css', 'nucleo-svg.css', 'perfect-scrollbar.css',
-        'soft-ui-dashboard-tailwind.css', 'soft-ui-dashboard-tailwind.min.css', 'tooltips.css'],
-      js:  ['all.js', 'calendar.js', ''],
-      path: 'app/presentation/assets'
+           css: ['nucleo-icons.css', 'nucleo-svg.css', 'perfect-scrollbar.css',
+                 'soft-ui-dashboard-tailwind.css', 'soft-ui-dashboard-tailwind.min.css', 'tooltips.css'],
+           js: ['all.js', 'calendar.js', ''],
+           path: 'app/presentation/assets'
 
     plugin :public, root: 'app/presentation/public'
     plugin :multi_route
     plugin :flash
 
-
     route do |routing|
       response['Content-Type'] = 'text/html; charset=utf-8'
-      @current_account = session[:current_account]
+      @current_account = SecureSession.new(session).get(:current_account)
 
       routing.public
       routing.assets
@@ -35,4 +34,3 @@ module No2Date
     end
   end
 end
-

@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 # Web
 gem 'puma'
 gem 'rack-session'
+gem 'redis-rack'
+gem 'redis-store'
 gem 'roda'
 gem 'slim'
 
@@ -12,19 +14,28 @@ gem 'slim'
 gem 'figaro'
 gem 'rake'
 
-# Debugging
-gem 'pry'
-
 # Communication
 gem 'http'
+gem 'redis'
 
 # Security
+gem 'rack-ssl-enforcer'
 gem 'rbnacl' # assumes libsodium package already installed
+
+# Encoding
+gem 'base64'
 
 # Development
 group :development do
   gem 'rubocop'
   gem 'rubocop-performance'
+end
+
+# Testing
+group :test do
+  gem 'minitest'
+  gem 'minitest-rg'
+  gem 'webmock'
 end
 
 group :development, :test do

@@ -11,4 +11,3 @@ unless app.environment == :production
   require 'rack/test'
   include Rack::Test::Methods # rubocop:disable Style/MixinUsage
 end
-
