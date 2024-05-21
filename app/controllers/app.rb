@@ -9,7 +9,7 @@ module No2Date
     plugin :render, engine: 'slim', views: 'app/presentation/views'
 
     # Get all formatted file names in the specified directory
-    def get_filenames(directory, extension)
+    def self.get_filenames(directory, extension)
       files = Dir.glob(File.join(directory, "*#{extension}"))
       files.map { |file| File.basename(file) }
     end
@@ -17,17 +17,14 @@ module No2Date
     # Get js directory
     js_directory = 'app/presentation/assets/js'
     # Get all filename in JavaScript format
-    js_filenames = get_filenames(js_directory, '.js')
+    js_filenames = get_filenames(js_directory, ".js")
 
     css_directory = 'app/presentation/assets/css'
-    css_filenames = get_filenames(css_directory, '.css')
-    puts css_filenames
+    css_filenames = get_filenames(css_directory, ".css")
 
     # plugin :assets, css: 'style.css', path: 'app/presentation/assets'
     plugin :assets,
-           css: ['nucleo-icons.css', 'nucleo-svg.css', 'perfect-scrollbar.css',
-                 'soft-ui-dashboard-tailwind.css', 'soft-ui-dashboard-tailwind.min.css', 'tooltips.css'],
-          #  js: ['all.js', 'calendar.js', ''],
+           css: css_filenames,
            js: js_filenames,
            path: 'app/presentation/assets'
 
