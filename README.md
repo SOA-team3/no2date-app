@@ -1,6 +1,8 @@
 # No2Date App
 
 Web application for No2Date system that allows teams to share sensitive files such as configuration information, credentials, etc.
+No2date is is an online calendar tool aimed at facilitating event coordination among multiple participants. It enables individuals to indicate their available times and dates, as well as view the availability of others. This helps the group collectively determine a mutually convenient meeting time.
+Web application for No2Date system that allows people to facilitate event coordination among multiple participants. It enables individuals to indicate their available times and dates, as well as view the availability of others. This helps the group collectively determine a mutually convenient meeting time.
 
 Please also note the Web API that it uses: https://github.com/ISS-Security/No2Date-api
 

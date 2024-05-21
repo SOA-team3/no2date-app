@@ -5,10 +5,9 @@
 require_relative '../require_app'
 require_app
 
-def app = Credence::App
+def app = No2Date::App
 
 unless app.environment == :production
   require 'rack/test'
   include Rack::Test::Methods # rubocop:disable Style/MixinUsage
 end
-
