@@ -27,7 +27,7 @@ module No2Date
             account_info[:auth_token]
           )
 
-          SecureSession.new(session).current_account = current_account
+          CurrentSession.new(session).current_account = current_account
 
           flash[:notice] = "Welcome back #{current_account.username}!"
           routing.redirect '/'
@@ -46,7 +46,7 @@ module No2Date
       @logout_route = '/auth/logout'
       routing.on 'logout' do
         routing.get do
-          SecureSession.new(session).delete(:current_account)
+          CurrentSession.new(session).delete(:current_account)
           flash[:notice] = "You've been logged out"
           routing.redirect @login_route
         end
