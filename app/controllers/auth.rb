@@ -45,6 +45,7 @@ module No2Date
 
       @logout_route = '/auth/logout'
       routing.on 'logout' do
+        # GET /auth/logout
         routing.get do
           CurrentSession.new(session).delete(:current_account)
           flash[:notice] = "You've been logged out"
@@ -83,9 +84,9 @@ module No2Date
           flash.now[:notice] = 'Email verified! Please choose a new password'
           new_account = SecureMessage.decrypt(registration_token)
           view :register_confirm,
-                locals: { new_account:,
-                          registration_token: }
-                end
+               locals: { new_account:,
+                         registration_token: }
+        end
       end
     end
   end
