@@ -42,3 +42,8 @@ group :development, :test do
   gem 'rack-test'
   gem 'rerun'
 end
+
+# tailwindcss
+gem 'rails', '~> 6.1.4'
+gem 'tailwindcss-rails'
+gem 'slim-rails'
