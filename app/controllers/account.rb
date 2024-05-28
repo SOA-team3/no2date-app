@@ -10,6 +10,7 @@ module No2Date
       routing.on do
         # GET /account/
         routing.get String do |username|
+          puts "controllers #{@current_account.username}"
           if @current_account && @current_account.username == username
             view :account, locals: { current_account: @current_account }
           else

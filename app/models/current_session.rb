@@ -15,6 +15,7 @@ module No2Date
     end
 
     def current_account=(current_account)
+      puts "current_session.rb 2 #{current_account.account_info}"
       @secure_session.set(:account, current_account.account_info)
       @secure_session.set(:auth_token, current_account.auth_token)
     end
