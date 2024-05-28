@@ -5,6 +5,6 @@ p It enables individuals to indicate their available times and dates, as well as
 p
   i Users can arrange meetings by comparing their regular schedules on their own calendars, enabling them to further edit and hide personal information. This project provides users with overlapped available times but eliminates the repetitive work of setting up their schedules.
 
-- unless current_account
+- unless current_account.logged_in?
   p
     a href='/auth/login' login to start!

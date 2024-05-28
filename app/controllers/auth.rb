@@ -47,7 +47,7 @@ module No2Date
       routing.on 'logout' do
         # GET /auth/logout
         routing.get do
-          CurrentSession.new(session).delete(:current_account)
+          CurrentSession.new(session).delete
           flash[:notice] = "You've been logged out"
           routing.redirect @login_route
         end
@@ -66,8 +66,8 @@ module No2Date
             account_data = routing.params.transform_keys(&:to_sym)
             VerifyRegistration.new(App.config).call(account_data)
 
-            flash[:notice] = 'Please login with your new account information'
-            routing.redirect @login_route
+            flash[:notice] = 'Please check your email for a verification link'
+            routing.redirect '/'
           rescue VerifyRegistration::ApiServerError => e
             App.logger.warn "API server error: #{e.inspect}\n#{e.backtrace}"
             flash[:error] = 'Our servers are not responding -- please try later'

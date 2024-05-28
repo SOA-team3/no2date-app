@@ -7,12 +7,13 @@ AllCops:
   NewCops: enable
   Exclude:
     - _snippets/*
-  
+
 Metrics/BlockLength:
   Enabled: true
   Exclude:
     - spec/**/*
     - Rakefile
+    - app/controllers/**/*
 
 Security/YAMLLoad:
   Enabled: true
