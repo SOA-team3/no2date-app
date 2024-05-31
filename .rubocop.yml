@@ -7,12 +7,13 @@ AllCops:
   NewCops: enable
   Exclude:
     - _snippets/*
-  
+
 Metrics/BlockLength:
   Enabled: true
   Exclude:
     - spec/**/*
     - Rakefile
+    - app/controllers/**/*
 
 Security/YAMLLoad:
   Enabled: true
@@ -29,3 +30,8 @@ Style/SymbolArray:
   Exclude:
     - db/migrations/**/*
     - Rakefile
+
+Metrics/AbcSize:
+  Enabled: true
+  Exclude:
+    - app/models/schedule.rb

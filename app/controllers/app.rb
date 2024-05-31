@@ -17,10 +17,10 @@ module No2Date
     # Get js directory
     js_directory = 'app/presentation/assets/js'
     # Get all filename in JavaScript format
-    js_filenames = get_filenames(js_directory, ".js")
+    js_filenames = get_filenames(js_directory, '.js')
 
     css_directory = 'app/presentation/assets/css'
-    css_filenames = get_filenames(css_directory, ".css")
+    css_filenames = get_filenames(css_directory, '.css')
 
     # plugin :assets, css: 'style.css', path: 'app/presentation/assets'
     plugin :assets,
@@ -34,7 +34,7 @@ module No2Date
 
     route do |routing|
       response['Content-Type'] = 'text/html; charset=utf-8'
-      @current_account = SecureSession.new(session).get(:current_account)
+      @current_account = CurrentSession.new(session).current_account
 
       routing.public
       routing.assets
