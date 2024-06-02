@@ -7,8 +7,8 @@ module No2Date
   class Schedules
     attr_reader :all
 
-    def initialize(_schedules_list)
-      @all = shcedules_list.map do |sched|
+    def initialize(schedules_list)
+      @all = schedules_list.map do |sched|
         Schedule.new(sched)
       end
     end
