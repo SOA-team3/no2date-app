@@ -6,7 +6,7 @@ module No2Date
     attr_reader :id, :name, :description, :organizer, :attendees, # basic info
                 :owner, :attenders, :schedules_under_meeting, :policies # full details
 
-    def initialize(meet_info)
+    def initialize(_meet_info)
       process_attributes(proj_info['attributes'])
       process_relationships(proj_info['relationships'])
       process_schedules_under_meeting(proj_info['schedules_under_meeting'])

@@ -21,7 +21,7 @@ module No2Date
             schedule = Schedule.new(sched_info)
 
             view :schedule, locals: {
-              current_account: @current_account, schedule: schedule
+              current_account: @current_account, schedule:
             }
           rescue StandardError => e
             puts "#{e.inspect}\n#{e.backtrace}"
@@ -32,12 +32,12 @@ module No2Date
 
         # GET /schedules/
         routing.get do
-            schedule_list = GetAllSchedules.new(App.config).call(@current_account)
+          schedule_list = GetAllSchedules.new(App.config).call(@current_account)
 
-            schedules = Schedules.new(schedule_list)
+          schedules = Schedules.new(schedule_list)
 
-            view :schedules_all,
-                 locals: { current_account: @current_account, schedules: }
+          view :schedules_all,
+               locals: { current_account: @current_account, schedules: }
         end
 
         # POST /schedules/

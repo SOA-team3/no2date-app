@@ -21,7 +21,7 @@ module No2Date
             meeting = Meeting.new(meet_info)
 
             view :meeting, locals: {
-              current_account: @current_account, meeting: meeting
+              current_account: @current_account, meeting:
             }
           rescue StandardError => e
             puts "#{e.inspect}\n#{e.backtrace}"
@@ -52,7 +52,6 @@ module No2Date
               meeting_id: meet_id
             )
             flash[:notice] = task[:message]
-
           rescue StandardError
             flash[:error] = 'Could not find attendee'
           ensure
@@ -62,12 +61,12 @@ module No2Date
 
         # GET /meetings/
         routing.get do
-            meeting_list = GetAllMeetings.new(App.config).call(@current_account)
+          meeting_list = GetAllMeetings.new(App.config).call(@current_account)
 
-            meetings = Meetings.new(meeting_list)
+          meetings = Meetings.new(meeting_list)
 
-            view :meetings_all,
-                 locals: { current_account: @current_account, meetings: }
+          view :meetings_all,
+               locals: { current_account: @current_account, meetings: }
         end
 
         # POST /meetings/
