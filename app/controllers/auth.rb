@@ -12,7 +12,6 @@ module No2Date
         # GET /auth/login
         routing.get do
           view :login
-          # view :signin
         end
 
         # POST /auth/login
@@ -63,8 +62,14 @@ module No2Date
 
           # POST /auth/register
           routing.post do
-            account_data = routing.params.transform_keys(&:to_sym)
-            VerifyRegistration.new(App.config).call(account_data)
+            registration = Form::Registration.new.call(routing.params)
+
+            if registration.failure?
+              flash[:error] = Form.validation_errors(registration)
+              routing.redirect @register_route
+            end
+
+            VerifyRegistration.new(App.config).call(registration)
 
             flash[:notice] = 'Please check your email for a verification link'
             routing.redirect '/'

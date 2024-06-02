@@ -19,11 +19,16 @@ gem 'http'
 gem 'redis'
 
 # Security
+gem 'dry-validation'
 gem 'rack-ssl-enforcer'
 gem 'rbnacl' # assumes libsodium package already installed
 
 # Encoding
 gem 'base64'
+
+# Debugging
+gem 'pry'
+gem 'rack-test'
 
 # Development
 group :development do
