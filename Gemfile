@@ -28,7 +28,6 @@ gem 'base64'
 
 # Debugging
 gem 'pry'
-gem 'rack-test'
 
 # Development
 group :development do
