@@ -16,14 +16,17 @@ module No2Date
 
         # POST /auth/login
         routing.post do
-          account_info = AuthenticateAccount.new(App.config).call(
-            username: routing.params['username'],
-            password: routing.params['password']
-          )
+          credentials = Form::LoginCredentials.new.call(routing.params)
 
+          if credentials.failure?
+            flash[:error] = 'Please enter both username and password'
+            routing.redirect @login_route
+          end
+
+          authenticated = AuthenticateAccount.new(App.config).call(**credentials.values)
           current_account = Account.new(
-            account_info[:account],
-            account_info[:auth_token]
+            authenticated[:account],
+            authenticated[:auth_token]
           )
 
           CurrentSession.new(session).current_account = current_account
@@ -79,7 +82,7 @@ module No2Date
             routing.redirect @register_route
           rescue StandardError => e
             App.logger.error "Could not process registration: #{e.inspect}"
-            flash[:error] = 'Registration process failed -- please try later'
+            flash[:error] = 'Registration process failed -- please contact us'
             routing.redirect @register_route
           end
         end
