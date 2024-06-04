@@ -23,7 +23,9 @@ module No2Date
             routing.redirect @login_route
           end
 
-          authenticated = AuthenticateAccount.new(App.config).call(**credentials.values)
+          authenticated = AuthenticateAccount.new(App.config)
+            .call(**credentials.values)
+            
           current_account = Account.new(
             authenticated[:account],
             authenticated[:auth_token]

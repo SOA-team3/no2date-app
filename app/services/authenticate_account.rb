@@ -20,8 +20,8 @@ module No2Date
       raise(UnauthorizedError) if response.code == 403
       raise(ApiServerError) if response.code != 200
 
-      puts response.to_s
-      account_info = JSON.parse(response.to_s)['attributes']
+      puts "authenticate_account.rb: account_info = #{JSON.parse(response.to_s)}"
+      account_info = JSON.parse(response.to_s)['data']['attributes']
 
       { account: account_info['account'],
         auth_token: account_info['auth_token'] }

@@ -52,6 +52,7 @@ module No2Date
               meeting_id: meet_id
             )
             flash[:notice] = task[:message]
+            
           rescue StandardError
             flash[:error] = 'Could not find attendee'
           ensure
