@@ -17,9 +17,18 @@ describe 'Test Service Objects' do
 
   describe 'Find authenticated account' do
     it 'HAPPY: should find an authenticated account' do
+      auth_account_file = 'spec/fixtures/auth_account.json'
+      ## Use this code to get an actual seeded account from API:
+      # response = HTTP.post("#{app.config.API_URL}/auth/authenticate",
+      #   json: { username: @credentials[:username], password: @credentials[:password] })
+      # auth_account_json = response.body.to_s
+      # File.write(auth_account_file, auth_account_json)
+
+      auth_return_json = File.read(auth_account_file)
+
       WebMock.stub_request(:post, "#{API_URL}/auth/authenticate")
              .with(body: @credentials.to_json)
-             .to_return(body: @api_account.to_json,
+             .to_return(body: auth_return_json,
                         headers: { 'content-type' => 'application/json' })
 
       auth = No2Date::AuthenticateAccount.new(app.config).call(**@credentials)
