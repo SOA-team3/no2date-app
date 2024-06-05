@@ -2,9 +2,9 @@
 
 module No2Date
   # Behaviors of the currently logged in account
-  class Schedule
-    attr_reader :id, :title, :description, :location, :start_date, :start_datetime, :end_date, :end_datetime,
-                :is_regular, :is_flexible,
+  class Event
+    attr_reader :id, :title, :description, :location, :start_datetime, :end_datetime,
+                :is_google, :is_flexible,
                 :account # full details
 
     def initialize(info)
@@ -17,11 +17,9 @@ module No2Date
       @title = attributes['title']
       @description = attributes['description']
       @location = attributes['location']
-      @start_date = attributes['start_date']
       @start_datetime = attributes['start_datetime']
-      @end_date = attributes['end_date']
       @end_datetime = attributes['end_datetime']
-      @is_regular = attributes['is_regular']
+      @is_google = attributes['is_google']
       @is_flexible = attributes['is_flexible']
     end
 

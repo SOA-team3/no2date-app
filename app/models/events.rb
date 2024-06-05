@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require_relative 'meeting'
+require_relative 'event'
 
 module No2Date
   # Behaviors of the currently logged in account
-  class Meetings
+  class Events
     attr_reader :all
 
-    def initialize(meetings_list)
-      @all = meetings_list.map do |meet|
-        Meeting.new(meet)
+    def initialize(events_list)
+      @all = events_list.map do |evnt|
+        Event.new(evnt)
       end
     end
   end
