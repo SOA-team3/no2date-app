@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 # Web
-# gem 'erb'
+gem 'erb'
 gem 'puma'
 gem 'rack-session'
 gem 'redis-rack'

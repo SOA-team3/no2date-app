@@ -4,8 +4,8 @@ require_relative 'form_base'
 
 module No2Date
   module Form
-    class NewMeeting < Dry::Validation::Contract
-      config.messages.load_paths << File.join(__dir__, 'errors/new_meeting.yml')
+    class NewAppointment < Dry::Validation::Contract
+      config.messages.load_paths << File.join(__dir__, 'errors/new_appointment.yml')
 
       params do
         required(:name).filled
