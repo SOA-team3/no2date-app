@@ -7,7 +7,6 @@
 <!-- sidenav  -->
 <aside class="max-w-62.5 ease-nav-brand z-990 fixed inset-y-0 my-4 ml-4 block w-full -translate-x-full flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
   <div class="h-19.5">
-    <i class="absolute top-0 right-0 hidden p-4 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:hidden" sidenav-close></i>
     <a class="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700" href="javascript:;"  href="/">
       <img src="./assets/img/logo-ct.png" class="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-8" alt="main_logo" />
       <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">No2Date</span>
@@ -16,7 +15,7 @@
 
   <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
 
-  <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
+  <div class="items-center block w-auto max-h-screen  h-sidenav grow basis-full">
     <ul class="flex flex-col pl-0 mb-0">
       <li class="mt-0.5 w-full">
         <a class="py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg bg-white px-4 font-semibold text-slate-700 transition-colors" href="/">
@@ -159,7 +158,9 @@
           HomePage
         </li>
       </ol>
+      <!--
       <h6 class="mb-0">Quick view your recent schedules and meetings</h6>
+      -->
     </nav>
 
       <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
@@ -287,18 +288,18 @@
 <% else %>
 
 <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="true">
-  <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+  <div class="flex items-center justify-end  px-4 py-1 mx-auto flex-wrap-inherit" style="width:100%">
     <nav>
       <!-- breadcrumb -->
       <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
-        <li class="text-sm leading-normal  text-slate-700">
-          HomePage
+        <li class="text-sm leading-normal text-slate-700">
+          
         </li>
       </ol>
-      <h6 class="mb-0">Login to quick view your recent schedules and meetings</h6>
+      <h6 class="mb-0 mr-4"></h6>
     </nav>
 
-      <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
+      <div class="flex items-center mt-2  sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
         <!-- fast search  -->
         <div class="flex items-center md:ml-auto md:pr-4">
           <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
