@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('task-form').addEventListener('submit', function(event) {
+    document.getElementById('new-event-form').addEventListener('submit', function(event) {
         const startDateTime = document.getElementById('start_datetime').value;
         const endDateTime = document.getElementById('end_datetime').value;
         if (new Date(startDateTime) >= new Date(endDateTime)) {
