@@ -1,0 +1,32 @@
+<body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+  <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
+
+    <h2>
+    <%= event.title %>
+    </h2>
+
+    <div class="row">
+        <div class="col-xs-3">
+        <dt>Description:</dt>
+        </div>
+        <div class="col-xs-9">
+        <dd class="blockquote"><%= event.description %></dd>
+        </div>
+
+        <div class="col-xs-3">
+        <dt>Location:</dt>
+        </div>
+        <div class="col-xs-9">
+        <dd class="blockquote">
+            <a data-bs-toggle="collapse" href="#document" aria-expanded="false" aria-controls="document">show document</a>
+            <div id="document" class="collapse">
+            <div class="card card-body">
+                <pre class="force-wrap"><%= event.location %></pre>
+            </div>
+            </div>
+        </dd>
+        </div>
+    </div>
+
+  </main>
+</body>
