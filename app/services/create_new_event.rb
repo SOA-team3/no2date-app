@@ -2,8 +2,8 @@
 
 require 'http'
 
-module Credence
-  # Create a new configuration file for an event
+module No2Date
+  # Create a new event for an account
   class CreateNewEvent
     def initialize(config)
       @config = config

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require_relative 'form_base'
+require 'time'
+require 'active_support'
+require 'active_support/time'
 
 module No2Date
   module Form
