@@ -1,16 +1,40 @@
-<h1>Account Details</h1>
+<body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+  <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-2">Username:</div>
-    <div class="col-sm-10">
-      <%= current_account.username %>
+    <h1>Account Details</h1>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-2">Username:</div>
+        <div class="col-sm-10">
+          <%= account.username %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">Email:</div>
+        <div class="col-sm-10">
+          <%= account.email %>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">Email:</div>
-    <div class="col-sm-10">
-      <%= current_account.email %>
+
+    <h3>API Access:</h3>
+    <div class="row">
+      <span>(read-only key valid for one month)</span>
     </div>
-  </div>
-</div>
+    <div class="row">
+      <div class="col-sm-2">API Key:</div>
+      <div class="col-sm-10">
+        <dd class="blockquote">
+          <a data-bs-toggle="collapse" href="#api_key" aria-expanded="false" aria-controls="api_key">show key</a>
+          <div id="api_key" class="collapse">
+            <div class="card card-body">
+              <pre class="text-wrap"><%= account.auth_token %></pre>
+            </div>
+          </div>
+        </dd>
+      </div>
+    </div>
+
+  </main>
+</body>

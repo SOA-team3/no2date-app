@@ -24,7 +24,7 @@ module No2Date
               current_account: @current_account, event:
             }
           rescue StandardError => e
-            puts "#{e.inspect}\n#{e.backtrace}"
+            App.logger.error "#{e.inspect}\n#{e.backtrace}"
             flash[:error] = 'Event not found'
             routing.redirect @events_route
           end
@@ -66,7 +66,7 @@ module No2Date
 
           flash[:notice] = 'Event created successfully'
         rescue StandardError => e
-          puts "FAILURE Creating Event: #{e.inspect}"
+          App.logger.error "FAILURE Creating Event: #{e.inspect}"
           flash[:error] = 'Could not create event'
         ensure
           routing.redirect @events_route
