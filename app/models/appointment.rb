@@ -6,12 +6,12 @@ module No2Date
     attr_reader :id, :name, :description, # basic info
                 :owner, :participants, :events_under_appointment, :policies # full details
 
-    def initialize(evnt_info)
-      process_attributes(evnt_info['attributes'])
-      process_relationships(evnt_info['relationships'])
-      process_events_under_appointment(evnt_info['events_under_appointment'])
+    def initialize(appt_info)
+      process_attributes(appt_info['attributes'])
+      process_relationships(appt_info['relationships'])
+      process_events_under_appointment(appt_info['events_under_appointment'])
       # process_available_meettime
-      process_policies(evnt_info['policies'])
+      process_policies(appt_info['policies'])
     end
 
     private

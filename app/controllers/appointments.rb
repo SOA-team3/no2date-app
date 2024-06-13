@@ -52,7 +52,7 @@ module No2Date
               appointment_id: appt_id
             )
             flash[:notice] = task[:message]
-            
+
           rescue StandardError
             flash[:error] = 'Could not find participant'
           ensure

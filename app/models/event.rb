@@ -8,6 +8,7 @@ module No2Date
                 :account # full details
 
     def initialize(info)
+      # puts "No2Date/models Event info: #{info}"
       process_attributes(info['attributes'])
       process_created(info['created'])
     end
