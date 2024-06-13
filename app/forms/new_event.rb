@@ -12,6 +12,7 @@ module No2Date
 
       params do
         required(:title).filled(max_size?: 256)
+        optional(:location).maybe(:string)
         optional(:description).maybe(:string)
         required(:start_datetime).filled(format?: DATETIME_REGEX)
         required(:end_datetime).filled(format?: DATETIME_REGEX)
