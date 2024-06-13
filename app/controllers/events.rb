@@ -43,7 +43,16 @@ module No2Date
         # POST /events/
         routing.post do
           routing.redirect '/auth/login' unless @current_account.logged_in?
-          puts "EVNT: #{routing.params}"
+
+          evnt_params = routing.params
+          # Convert datetime-local input to required format
+          if evnt_params['start_datetime'] && evnt_params['end_datetime']
+            time_zone = "Asia/Taipei"  # You can adjust this to your desired time zone
+            evnt_params['start_datetime'] = Time.parse(evnt_params['start_datetime']).in_time_zone(time_zone).strftime("%Y-%m-%d %H:%M:%S %z")
+            evnt_params['end_datetime'] = Time.parse(evnt_params['end_datetime']).in_time_zone(time_zone).strftime("%Y-%m-%d %H:%M:%S %z")
+          end
+          # puts "EVNT: #{evnt_params}"
+
           event_data = Form::NewEvent.new.call(routing.params)
           if event_data.failure?
             flash[:error] = Form.message_values(event_data)

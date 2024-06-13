@@ -26,6 +26,7 @@ gem 'rbnacl' # assumes libsodium package already installed
 
 # Encoding
 gem 'base64'
+gem 'activesupport'
 
 # Debugging
 gem 'pry'
