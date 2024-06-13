@@ -28,3 +28,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
+//checks if the start date time is less than the end date time
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('task-form').addEventListener('submit', function(event) {
+        const startDateTime = document.getElementById('start_datetime').value;
+        const endDateTime = document.getElementById('end_datetime').value;
+        if (new Date(startDateTime) >= new Date(endDateTime)) {
+            alert('Start DateTime must be earlier than End DateTime');
+            event.preventDefault();
+        }
+    });
+});

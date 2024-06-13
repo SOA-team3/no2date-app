@@ -1,0 +1,31 @@
+<div class="row" style="vertical-align: bottom;">
+  <div class="col-xs-9">
+    <h3>Projects</h3>
+  </div>
+  <div class="col-xs-3">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newProjectModal">+ New Project</button>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Project name</th>
+      <th>Repo URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% projects.all.each do |proj| %>
+      <tr>
+        <td>
+          <a href="/projects/<%= proj.id %>"><%= proj.name %></a>
+        </td>
+        <td>
+          <a href="<%= proj.repo_url %>"><%= proj.repo_url %></a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render partial: 'project_new_partial' %>
