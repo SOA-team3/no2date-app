@@ -31,21 +31,30 @@ module No2Date
 
           # POST /appointments/[appt_id]/participants
           routing.post('participants') do
+            puts "appointments.rb POST /appointments/#{appt_id}/participants"
             action = routing.params['action']
+            puts "appointments.rb action: #{action}"
+            puts "appointments.rb routing.params: #{routing.params}"
             participant_info = Form::ParticipantEmail.new.call(routing.params)
+            puts "appointments.rb participant_info: #{participant_info.inspect}"
             if participant_info.failure?
               flash[:error] = Form.validation_errors(participant_info)
               routing.halt
             end
+            puts "appointments.rb participant_info: #{participant_info.failure?}"
 
             task_list = {
               'add' => { service: AddParticipant,
-                         message: 'Added new participant to appointment' },
+                         message: 'Added new participant to project' },
               'remove' => { service: RemoveParticipant,
-                            message: 'Removed participant from appointment' }
+                            message: 'Removed participant from project' }
             }
 
+            puts "appointments.rb after task_list"
+            puts "appointments.rb task_list: #{task_list}"
+
             task = task_list[action]
+            puts "appointments.rb task: #{task}"
             task[:service].new(App.config).call(
               current_account: @current_account,
               participant: participant_info,
