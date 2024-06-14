@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 require_relative '../spec_helper'
@@ -5,10 +6,9 @@ require 'webmock/minitest'
 
 describe 'Test Service Objects' do
   before do
-    @credentials = { username: 'brian.chang', password: 'mypa$$w0rd' }
-    @mal_credentials = { username: 'brian.chang', password: 'wrongpassword' }
-    @api_account = { attributes:
-                       { username: 'brian.chang', email: 'bri@nthu.edu.tw' } }
+    @credentials = { username: 'brian', password: 'mypa$$w0rd' }
+    @mal_credentials = { username: 'brian', password: 'wrongpassword' }
+    @api_account = { username: 'brian', email: 'brian2000890714@gmail.com' }
   end
 
   after do
@@ -18,7 +18,9 @@ describe 'Test Service Objects' do
   describe 'Find authenticated account' do
     it 'HAPPY: should find an authenticated account' do
       auth_account_file = 'spec/fixtures/auth_account.json'
+
       ## Use this code to get an actual seeded account from API:
+      # @credentials = { username: 'brian', password: 'mypa$$w0rd' }
       # response = HTTP.post("#{app.config.API_URL}/auth/authenticate",
       #   json: { username: @credentials[:username], password: @credentials[:password] })
       # auth_account_json = response.body.to_s
@@ -32,10 +34,11 @@ describe 'Test Service Objects' do
                         headers: { 'content-type' => 'application/json' })
 
       auth = No2Date::AuthenticateAccount.new(app.config).call(**@credentials)
+
       account = auth[:account]['attributes']
       _(account).wont_be_nil
-      _(account['username']).must_equal @api_account[:attributes][:username]
-      _(account['email']).must_equal @api_account[:attributes][:email]
+      _(account['username']).must_equal @api_account[:username]
+      _(account['email']).must_equal @api_account[:email]
     end
 
     it 'BAD: should not find a false authenticated account' do

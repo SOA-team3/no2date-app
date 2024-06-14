@@ -24,7 +24,7 @@ module No2Date
               current_account: @current_account, appointment:
             }
           rescue StandardError => e
-            puts "#{e.inspect}\n#{e.backtrace}"
+            App.logger.error "#{e.inspect}\n#{e.backtrace}"
             flash[:error] = 'Appointment not found'
             routing.redirect @appointments_route
           end
@@ -87,7 +87,7 @@ module No2Date
 
           flash[:notice] = 'Add participants to your new appointment'
         rescue StandardError => e
-          puts "FAILURE Creating Appointment: #{e.inspect}"
+          App.logger.error "FAILURE Creating Appointment: #{e.inspect}"
           flash[:error] = 'Could not create appointment'
         ensure
           routing.redirect @appointments_route
