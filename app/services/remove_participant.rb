@@ -14,6 +14,7 @@ module No2Date
       end
   
       def call(current_account:, participant:, appointment_id:)
+        puts "Removing participant #{participant[:email]} from appointment #{appointment_id}"
         response = HTTP.auth("Bearer #{current_account.auth_token}")
                       .delete("#{api_url}/appointments/#{appointment_id}/participants",
                               json: { email: participant[:email] })

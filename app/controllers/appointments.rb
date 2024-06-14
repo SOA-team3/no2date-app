@@ -15,10 +15,14 @@ module No2Date
 
           # GET /appointments/[appt_id]
           routing.get do
+            puts "appointments.rb GET /appointments/#{appt_id}"
             appt_info = GetAppointment.new(App.config).call(
               @current_account, appt_id
             )
+            puts "appointments.rb appt_info: #{appt_info.inspect}"
             appointment = Appointment.new(appt_info)
+
+            puts "appointments.rb appointment: #{appointment.inspect}"
 
             view :appointment, locals: {
               current_account: @current_account, appointment:

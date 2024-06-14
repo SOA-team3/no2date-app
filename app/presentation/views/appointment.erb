@@ -89,7 +89,6 @@
               <% appointment.participants.each do |participant| %>
                 <li class="list-group-item clearfix">
                   <%= participant.username %>
-                  <%= participant.events %>
                   <% if appointment.policies.can_remove_participants %>
                     <span class="float-end">
                       <form role="form" method="post" action="/appointments/<%= appointment.id %>/participants">
@@ -101,6 +100,26 @@
                       </form>
                     </span>
                   <% end %>
+                </li>
+              <% end %>
+            </ul>
+
+            <ul class="list-group">
+              <li class="list-group-item clearfix">
+                <strong>Overlap time</strong>
+              </li>
+              <% free_times = appointment.free_time_of_appointment %>
+              <% free_times.each do |day_info| %>
+                <li class="list-group-item clearfix">
+                  <% day_info = day_info.to_h %>
+                  <%= "Date: #{day_info['day']}" %>
+                  <% day_info["free_times"].each do |free_time| %>
+                    <% free_time = free_time.to_h %>
+                    <span class="float-end">
+                      Free from <%= DateTime.iso8601(free_time["start"]).strftime('%H:%M') %> - <%= DateTime.iso8601(free_time["end"]).strftime('%H:%M') %>
+                    </span>
+                  <% end %>
+
                 </li>
               <% end %>
             </ul>

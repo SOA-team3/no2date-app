@@ -4,13 +4,13 @@ module No2Date
   # Behaviors of the currently logged in account
   class Appointment
     attr_reader :id, :name, :description, # basic info
-                :owner, :participants, :events_under_appointment, :policies # full details
+                :owner, :participants, :events_under_appointment, :free_time_of_appointment, :policies # full details
 
     def initialize(appt_info)
       process_attributes(appt_info['attributes'])
       process_relationships(appt_info['relationships'])
       process_events_under_appointment(appt_info['events_under_appointment'])
-      # process_available_meettime
+      process_free_time_of_appointment(appt_info['free_time_of_appointment'])
       process_policies(appt_info['policies'])
     end
 
@@ -40,6 +40,13 @@ module No2Date
 
       # @events_under_appointment = events_under_appointment.map { |event| Event.new(account_info) }
       @events_under_appointment = events_under_appointment
+    end
+
+    def process_free_time_of_appointment(free_time_of_appointment)
+      return nil unless free_time_of_appointment
+      puts "appointment.rb #{free_time_of_appointment}"
+
+      @free_time_of_appointment = free_time_of_appointment
     end
 
     def process_policies(policies)
