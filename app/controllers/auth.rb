@@ -6,13 +6,13 @@ require_relative 'app'
 module No2Date
   # Web controller for No2Date APP
   class App < Roda
-    def goog_oauth_url(config)
-      url = config.GOOG_OAUTH_URL
-      client_id = config.GOOG_CLIENT_ID
-      scope = config.GOOG_SCOPE
+    # def goog_oauth_url(config)
+    #   url = config.GOOG_OAUTH_URL
+    #   client_id = config.GOOG_CLIENT_ID
+    #   scope = config.GOOG_SCOPE
 
-      "#{url}?client_id=#{client_id}&scope=#{scope}"
-    end
+    #   "#{url}?client_id=#{client_id}&scope=#{scope}"
+    # end
 
     route('auth') do |routing|
       @oauth_callback = '/auth/sso_callback'
@@ -20,9 +20,10 @@ module No2Date
       routing.is 'login' do
         # GET /auth/login
         routing.get do
-          view :login, locals: {
-            goog_oauth_url: goog_oauth_url(App.config)
-          }
+          # view :login, locals: {
+          #   goog_oauth_url: goog_oauth_url(App.config)
+          # }
+          view :login
         end
 
         # POST /auth/login
