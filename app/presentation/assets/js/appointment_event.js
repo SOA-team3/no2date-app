@@ -53,3 +53,13 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   });
+
+  //To add an href attribute to each row in the appointments_all.erb table
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.appointment-row').forEach(row => {
+      row.addEventListener('click', function() {
+        window.location.href = this.getAttribute('data-href');
+      });
+    });
+  });
