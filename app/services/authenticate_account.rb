@@ -5,7 +5,7 @@ require 'http'
 module No2Date
   # Returns an authenticated user, or nil
   class AuthenticateAccount
-    class UnauthorizedError < StandardError; end
+    class NotAuthenticatedError < StandardError; end
 
     class ApiServerError < StandardError; end
 
@@ -14,10 +14,10 @@ module No2Date
     end
 
     def call(username:, password:)
-      response = HTTP.post("#{@config.API_URL}/auth/authenticate",
+      response = HTTP.post("#{ENV['API_URL']}/auth/authenticate",
                            json: { username:, password: })
 
-      raise(UnauthorizedError) if response.code == 403
+      raise(NotAuthenticatedError) if response.code == 401
       raise(ApiServerError) if response.code != 200
 
       puts "authenticate_account.rb - response.to_s: #{response.to_s}"

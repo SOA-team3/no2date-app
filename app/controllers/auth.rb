@@ -4,7 +4,7 @@ require 'roda'
 require_relative 'app'
 
 module No2Date
-  # Web controller for No2Date API
+  # Web controller for No2Date APP
   class App < Roda
     def goog_oauth_url(config)
       url = config.GOOG_OAUTH_URL
