@@ -63,3 +63,22 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   });
+
+  //
+  document.getElementById('all-tab').addEventListener('click', function() {
+    document.querySelectorAll('#event-table-body tr').forEach(row => {
+      row.style.display = 'table-row';
+    });
+  });
+
+  document.getElementById('upcoming-tab').addEventListener('click', function() {
+    const currentTime = new Date().toISOString();
+    document.querySelectorAll('#event-table-body tr').forEach(row => {
+      const startDateTime = row.getAttribute('data-start-datetime');
+      if (startDateTime >= currentTime) {
+        row.style.display = 'table-row';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
