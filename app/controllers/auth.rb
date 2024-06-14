@@ -6,12 +6,23 @@ require_relative 'app'
 module No2Date
   # Web controller for No2Date API
   class App < Roda
+    def goog_oauth_url(config)
+      url = config.GOOG_OAUTH_URL
+      client_id = config.GOOG_CLIENT_ID
+      scope = config.GOOG_SCOPE
+
+      "#{url}?client_id=#{client_id}&scope=#{scope}"
+    end
+
     route('auth') do |routing|
+      @oauth_callback = '/auth/sso_callback'
       @login_route = '/auth/login'
       routing.is 'login' do
         # GET /auth/login
         routing.get do
-          view :login
+          view :login, locals: {
+            goog_oauth_url: goog_oauth_url(App.config)
+          }
         end
 
         # POST /auth/login
@@ -23,9 +34,8 @@ module No2Date
             routing.redirect @login_route
           end
 
-          authenticated = AuthenticateAccount.new(App.config)
-            .call(**credentials.values)
-            
+          authenticated = AuthenticateAccount.new.call(**credentials.values)
+
           current_account = Account.new(
             authenticated[:account],
             authenticated[:auth_token]
@@ -34,14 +44,42 @@ module No2Date
           CurrentSession.new(session).current_account = current_account
 
           flash[:notice] = "Welcome back #{current_account.username}!"
-          routing.redirect '/'
-        rescue AuthenticateAccount::UnauthorizedError
-          flash.now[:error] = 'Username and password did not match our records'
+          routing.redirect '/appointments'
+        rescue AuthenticateAccount::NotAuthenticatedError
+          flash[:error] = 'Username and password did not match our records'
           response.status = 401
-          view :login
+          routing.redirect @login_route
         rescue AuthenticateAccount::ApiServerError => e
           App.logger.warn "API server error: #{e.inspect}\n#{e.backtrace}"
           flash[:error] = 'Our servers are not responding -- please try later'
+          response.status = 500
+          routing.redirect @login_route
+        end
+      end
+
+      routing.is 'sso_callback' do
+        # GET /auth/sso_callback
+        routing.get do
+          authorized = AuthorizeGoogleAccount
+                       .new(App.config)
+                       .call(routing.params['code'])
+
+          current_account = Account.new(
+            authorized[:account],
+            authorized[:auth_token]
+          )
+
+          CurrentSession.new(session).current_account = current_account
+
+          flash[:notice] = "Welcome #{current_account.username}!"
+          routing.redirect '/appointments'
+        rescue AuthorizeGoogleAccount::UnauthorizedError
+          flash[:error] = 'Could not login with Google'
+          response.status = 403
+          routing.redirect @login_route
+        rescue StandardError => e
+          puts "SSO LOGIN ERROR: #{e.inspect}\n#{e.backtrace}"
+          flash[:error] = 'Unexpected API Error'
           response.status = 500
           routing.redirect @login_route
         end
