@@ -43,3 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+//To add an href attribute to each row in the events_all.erb table
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.clickable-row').forEach(row => {
+      row.addEventListener('click', function() {
+        window.location.href = this.getAttribute('data-href');
+      });
+    });
+  });
