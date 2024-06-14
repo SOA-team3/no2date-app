@@ -2,53 +2,54 @@
   <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
 
     <h2>
-    <%= appointment.name %>
+      <%= appointment.name %>
     </h2>
 
     <div class="row">
-        <div class="col-xs-3">
+      <div class="col-xs-3">
         <dt>Description:</dt>
-        </div>
-        <div class="col-xs-9">
-        <dd class="blockquote"><%= appointment.description %></dd>
-        </div>
+      </div>
+      <div class="col-xs-9">
+        <% if appointment.description.nil? %>
+          <dd class="blockquote">No description</dd>
+        <% else %>
+          <dd class="blockquote"><%= appointment.description %></dd>
+        <% end %>
+      </div>
     </div>
 
     <!-- Add participants -->
-    <!--<div class="w-full px-6 py-6 mx-auto">
-      <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
-        <div class="container mx-auto px-4 py-2 ">
-          <div class="flex justify-between">
-            <div class="font-bold text-gray-800 text-xl mb-4">
-              Participants in <strong><%= appointment.name %></strong>
-            </div>
-            <button data-modal-target="#participant-modal" data-modal-toggle="participant-modal" class="mb-3 ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-              + Add a Participant
-            </button>
-
+    <div class="w-full px-6 py-6 mx-auto">
+      <div class="container mx-auto px-4 py-2 ">
+        <div class="flex justify-between">
+          <div class="font-bold text-gray-800 text-xl mb-4">
+            Participants in <strong><%= appointment.name %></strong>
           </div>
-        </div>
+          <button data-modal-target="#participant-modal" data-modal-toggle="participant-modal" class="mb-3 ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+            + Add a Participant
+          </button>
 
+        </div>
       </div>
-    </div>-->
+    </div>
 
     <!-- add participant Modal start -->
-    <%# <div id="participant-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"> %>
+    <div id="participant-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
       <div class="relative p-4 w-full max-w-md ">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <!-- Modal header -->
           <% if appointment.policies.can_add_participants %>
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Add a participant
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="participant-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                Add a participant
+              </h3>
+              <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="participant-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close modal</span>
+              </button>
             </div>
           <% end %>
 
@@ -62,7 +63,7 @@
               </div>
             </div>
             <div class="mb-2 flex justify-end p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-              <button type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" data-modal-toggle="participant-modal">Cancel</button>
+              <button type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancel</button>
               <!-- Submit -->
               <button data-modal-hide="extralarge-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
             </div>
@@ -70,67 +71,88 @@
 
         </div>
       </div>
-    <%# </div> %>
+    </div>
 
     <!-- add participant Modal end -->
 
     <!-- Show participant content start -->
     <div class="col-lg-3">
       <div class="panel panel-default">
-        <div class="panel-heading"><strong>Participants:</strong></div>
-        <div class="panel-body">
-          <% if appointment.participants.empty? %>
-            <span class="small">There are no participants yet</span>
-          <% else %>
-            <ul class="list-group">
-              <li class="list-group-item clearfix">
-                <%= appointment.owner.username %>
-              </li>
-              <% appointment.participants.each do |participant| %>
-                <li class="list-group-item clearfix">
-                  <%= participant.username %>
-                  <% if appointment.policies.can_remove_participants %>
-                    <span class="float-end">
-                      <form role="form" method="post" action="/appointments/<%= appointment.id %>/participants">
-                        <input type="hidden" name="action" value="remove">
-                        <input type="hidden" name="email" value="<%= participant.email %>">
-                        <button type="submit" class="btn btn-xs btn-default">
-                          <span class="fas fa-user-times"></span>
-                        </button>
-                      </form>
-                    </span>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <%# <div class="panel-heading"><strong>Participants:</strong></div> %>
+          <div class="panel-body">
+            <% if appointment.participants.empty? %>
+              <span class="small">There are no participants yet</span>
+            <% else %>
+              <tbody id="participant-table-body">
+                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" owner-row-id="1">
+                  <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Owner
+                  </th>
+                  <td class="px-6 py-4">
+                    <%= appointment.owner.username %>
+                  <td>
+                </tr>
+                <!-- participant content -->
+                <% appointment.participants.each_with_index do |participant, index|%>
+                  <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" participant-row-id=<%= index+1%>>
+                    <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Participant <%= index+1%>
+                    </th>
+                    <td class="px-6 py-4">
+                      <%= participant.username %>
+                    </td>
+                    <td class="px-6 py-4">
+                      <% if appointment.policies.can_remove_participants %>
+                        <span class="float-end">
+                          <form role="form" method="post" action="/appointments/<%= appointment.id %>/participants">
+                            <input type="hidden" name="action" value="remove">
+                            <input type="hidden" name="email" value="<%= participant.email %>">
+                            <button type="submit" class="btn btn-xs btn-default">
+                              <span class="fas fa-user-times"></span>
+                            </button>
+                          </form>
+                        </span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
 
-            <ul class="list-group">
-              <li class="list-group-item clearfix">
-                <strong>You can have the appointment in these time slots:</strong>
-              </li>
-              <% free_times = appointment.free_time_of_appointment %>
-              <% free_times.each do |day_info| %>
-                <li class="list-group-item clearfix">
-                  <% day_info = day_info.to_h %>
-                  <%= "Date: #{day_info['day']}" %>
-                  <% day_info["free_times"].each do |free_time| %>
-                    <% free_time = free_time.to_h %>
-                    <span class="float-end">
-                      Free from <%= DateTime.iso8601(free_time["start"]).strftime('%H:%M') %> - <%= DateTime.iso8601(free_time["end"]).strftime('%H:%M') %>
-                    </span>
-                  <% end %>
 
-                </li>
-              <% end %>
-            </ul>
+            <% end %>
 
-          <% end %>
-
-        </div>
+          </div>
+        </table>
 
       </div>
     </div>
     <!-- Show participant content end -->
 
+    <!-- Show overlap freetime content start-->
+    <ul class="list-group">
+      <h6>You can have the appointment in these time slots:</h6>
+      <% free_times = appointment.free_time_of_appointment %>
+      <% free_times.each do |day_info| %>
+        <li class="list-group-item clearfix">
+          <% day_info = day_info.to_h %>
+          <%= "Date: #{day_info['day']}" %>
+            <% if day_info["free_times"].empty?%>
+              <li style="text-align: center;">
+                No available time!
+              </li>
+            <% else %>
+              <% day_info["free_times"].each do |free_time| %>
+                <% free_time = free_time.to_h %>
+                <span class="float-end">
+                  Free from <%= DateTime.iso8601(free_time["start"]).strftime('%H:%M') %> - <%= DateTime.iso8601(free_time["end"]).strftime('%H:%M') %>
+                </span>
+                <br>
+            <% end %>
+          <% end %>
+
+        </li>
+      <% end %>
+    </ul>
   </main>
 </body>
