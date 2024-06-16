@@ -9,9 +9,9 @@ module No2Date
 
     class ApiServerError < StandardError; end
 
-    def initialize(config)
-      @config = config
-    end
+    # def initialize(config)
+    #   @config = config
+    # end
 
     def call(username:, password:)
       response = HTTP.post("#{ENV['API_URL']}/auth/authenticate",

@@ -35,9 +35,10 @@ module No2Date
       routing.is 'login' do
         # GET /auth/login
         routing.get do
-          view :login, locals: {
-            goog_oauth_url: goog_oauth_url(App.config)
-          }
+          # view :login, locals: {
+          #   goog_oauth_url: goog_oauth_url(App.config)
+          # }
+          view :login
         end
 
         # POST /auth/login
