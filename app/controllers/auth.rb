@@ -25,7 +25,6 @@ module No2Date
       }
       auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
       redirect_uri = "#{auth_url}?#{URI.encode_www_form(query)}"
-      
     end
 
     route('auth') do |routing|
@@ -35,10 +34,9 @@ module No2Date
       routing.is 'login' do
         # GET /auth/login
         routing.get do
-          # view :login, locals: {
-          #   goog_oauth_url: goog_oauth_url(App.config)
-          # }
-          view :login
+          view :login, locals: {
+            goog_oauth_url: goog_oauth_url(App.config)
+          }
         end
 
         # POST /auth/login
