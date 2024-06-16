@@ -10,6 +10,8 @@ gem 'redis-rack'
 gem 'redis-store'
 gem 'roda'
 gem 'slim'
+gem 'httparty'
+gem 'sinatra'
 
 # Configuration
 gem 'figaro'

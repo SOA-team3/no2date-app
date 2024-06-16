@@ -7,14 +7,29 @@ module No2Date
   # Web controller for No2Date APP
   class App < Roda
     def goog_oauth_url(config)
-      url = config.GOOG_OAUTH_URL
-      client_id = config.GOOG_CLIENT_ID
-      scope = config.GOOG_SCOPE
+      # url = config.GOOG_OAUTH_URL
+      # client_id = config.GOOG_CLIENT_ID
+      # scope = config.GOOG_SCOPE
 
-      "#{url}?client_id=#{client_id}&scope=#{scope}"
+      # "#{url}?client_id=#{client_id}&scope=#{scope}"
+      query = {
+        'redirect_uri' => config.REDIRECT_URI,  # Ensure you define or replace `redirect_url` with your actual URL
+        'client_id' => config.GOOG_CLIENT_ID,        # Replace `client_id` with your Google client ID
+        'access_type' => 'offline',
+        'response_type' => 'code',
+        'prompt' => 'consent',
+        'scope' => [
+          'https://www.googleapis.com/auth/userinfo.profile',
+          'https://www.googleapis.com/auth/userinfo.email'
+        ].join(' ')
+      }
+      auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
+      redirect_uri = "#{auth_url}?#{URI.encode_www_form(query)}"
+      
     end
 
     route('auth') do |routing|
+      puts "AUTH ROUTE"
       @oauth_callback = '/auth/sso_callback'
       @login_route = '/auth/login'
       routing.is 'login' do
@@ -57,33 +72,36 @@ module No2Date
         end
       end
 
-      routing.is 'sso_callback' do
-        # GET /auth/sso_callback
-        routing.get do
-          authorized = AuthorizeGoogleAccount
-                       .new(App.config)
-                       .call(routing.params['code'])
+      # routing.is 'sso_callback' do
+      #   # GET /auth/sso_callback
+      #   routing.get do
+      #     puts "SSO CALLBACK"
+      #     puts "SSO CALLBACK: #{routing.params['code']}"
 
-          current_account = Account.new(
-            authorized[:account],
-            authorized[:auth_token]
-          )
+      #     authorized = AuthorizeGoogleAccount
+      #                  .new(App.config)
+      #                  .call(routing.params['code'])
 
-          CurrentSession.new(session).current_account = current_account
+      #     current_account = Account.new(
+      #       authorized[:account],
+      #       authorized[:auth_token]
+      #     )
 
-          flash[:notice] = "Welcome #{current_account.username}!"
-          routing.redirect '/appointments'
-        rescue AuthorizeGoogleAccount::UnauthorizedError
-          flash[:error] = 'Could not login with Google'
-          response.status = 403
-          routing.redirect @login_route
-        rescue StandardError => e
-          puts "SSO LOGIN ERROR: #{e.inspect}\n#{e.backtrace}"
-          flash[:error] = 'Unexpected API Error'
-          response.status = 500
-          routing.redirect @login_route
-        end
-      end
+      #     CurrentSession.new(session).current_account = current_account
+
+      #     flash[:notice] = "Welcome #{current_account.username}!"
+      #     routing.redirect '/appointments'
+      #   rescue AuthorizeGoogleAccount::UnauthorizedError
+      #     flash[:error] = 'Could not login with Google'
+      #     response.status = 403
+      #     routing.redirect @login_route
+      #   rescue StandardError => e
+      #     puts "SSO LOGIN ERROR: #{e.inspect}\n#{e.backtrace}"
+      #     flash[:error] = 'Unexpected API Error'
+      #     response.status = 500
+      #     routing.redirect @login_route
+      #   end
+      # end
 
       @logout_route = '/auth/logout'
       routing.on 'logout' do
@@ -137,5 +155,36 @@ module No2Date
         end
       end
     end
+
+    route('sso_callback') do |routing|
+        # GET /sso_callback
+        routing.get do
+          puts "SSO CALLBACK"
+          puts "SSO CALLBACK: #{routing.params['code']}"
+
+          authorized = AuthorizeGoogleAccount
+                       .new(App.config)
+                       .call(routing.params['code'])
+
+          current_account = Account.new(
+            authorized[:account],
+            authorized[:auth_token]
+          )
+
+          CurrentSession.new(session).current_account = current_account
+
+          flash[:notice] = "Welcome #{current_account.username}!"
+          routing.redirect '/appointments'
+        rescue AuthorizeGoogleAccount::UnauthorizedError
+          flash[:error] = 'Could not login with Google'
+          response.status = 403
+          routing.redirect @login_route
+        rescue StandardError => e
+          puts "SSO LOGIN ERROR: #{e.inspect}\n#{e.backtrace}"
+          flash[:error] = 'Unexpected API Error'
+          response.status = 500
+          routing.redirect @login_route
+        end
+      end
   end
 end

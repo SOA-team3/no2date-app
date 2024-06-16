@@ -8,8 +8,8 @@ require 'erb'
 module No2Date
   # Web controller for No2Date API
   class App < Roda
-    plugin :render, engine: 'erb', views: 'app/presentation/views'
-    # plugin :render, engine: 'slim', views: 'app/presentation/views'
+    # plugin :render, engine: 'erb', views: 'app/presentation/views'
+    plugin :render, engine: 'slim', views: 'app/presentation/views'
 
     # Get all formatted file names in the specified directory
     def self.get_filenames(directory, extension)

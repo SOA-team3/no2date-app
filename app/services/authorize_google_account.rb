@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require 'http'
+require 'uri'
+require 'sinatra'
+require 'httparty'
 
 module No2Date
   # Returns an authenticated user, or nil
@@ -17,34 +20,59 @@ module No2Date
     end
 
     def call(code)
-      access_token = get_access_token_from_google(code)
-      get_sso_account_from_api(access_token)
+      get_access_token_from_google(code)
+      get_sso_account_from_api()
     end
 
     private
 
     def get_access_token_from_google(code)
-      challenge_response =
-        HTTP.headers(accept: 'application/json')
-            .post(@config.GOOG_TOKEN_URL,
-                  form: { client_id: @config.GOOG_CLIENT_ID,
-                          client_secret: @config.GOOG_CLIENT_SECRET,
-                          code: code })
-      raise UnauthorizedError unless challenge_response.status < 400
+      # challenge_response =
+      #   HTTP.headers(accept: 'application/json')
+      #       .post(@config.GOOG_TOKEN_URL,
+      #             form: { client_id: @config.GOOG_CLIENT_ID,
+      #                     client_secret: @config.GOOG_CLIENT_SECRET,
+      #                     code: code })
+      # raise UnauthorizedError unless challenge_response.status < 400
 
-      JSON.parse(challenge_response)['access_token']
+      # JSON.parse(challenge_response)['access_token']
+      # Assuming the code is passed as a query parameter to the callback URL
+
+      puts "get_access_token_from_google: code: #{code}"
+      
+      options = {
+        body: URI.encode_www_form({
+          code: code,
+          client_id: @config.GOOG_CLIENT_ID,          # Ensure you have defined `client_id`
+          client_secret: @config.GOOG_CLIENT_SECRET,  # Ensure you have defined `client_secret`
+          redirect_uri: @config.REDIRECT_URI,    # Ensure you define or replace `redirect_url` with your actual URL
+          grant_type: 'authorization_code'
+        }),
+        headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
+      }
+
+      url = 'https://oauth2.googleapis.com/token'
+      response = HTTParty.post(url, options)
+
+      # Parsing the JSON response to access tokens
+      @access_token = response.parsed_response['access_token']
+      @id_token = response.parsed_response['id_token']
     end
 
-    def get_sso_account_from_api(access_token)
-      response =
-        HTTP.post("#{@config.API_URL}/auth/sso",
-                  json: { access_token: access_token })
-      raise if response.code >= 400
+    def get_sso_account_from_api
+      puts "get_sso_account_from_api, @access_token: #{@access_token}, @id_token: #{@id_token}"
+      # Assuming `access_token` and `id_token` are stored in session or passed some other way
+      response = HTTParty.get(
+        "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=#{@access_token}",
+        headers: { "Authorization" => "Bearer #{@id_token}" }
+      )
 
-      account_info = JSON.parse(response)['data']['attributes']
+      account_info = JSON.parse(response.body)
+
+      puts "authorize_google_account.rb: account_info: #{account_info}"
 
       {
-        account: account_info['account'],
+        account: account_info['name'],
         auth_token: account_info['auth_token']
       }
     end
