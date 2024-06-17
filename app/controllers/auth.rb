@@ -173,7 +173,7 @@ module No2Date
           CurrentSession.new(session).current_account = current_account
 
           flash[:notice] = "Welcome #{current_account.username}!"
-          routing.redirect '/appointments'
+          routing.redirect "/" # should redirect to appointments
         rescue AuthorizeGoogleAccount::UnauthorizedError
           flash[:error] = 'Could not login with Google'
           response.status = 403

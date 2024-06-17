@@ -61,18 +61,20 @@ module No2Date
 
     def get_sso_account_from_api
       puts "get_sso_account_from_api, @access_token: #{@access_token}, @id_token: #{@id_token}"
-      # Assuming `access_token` and `id_token` are stored in session or passed some other way
-      response = HTTParty.get(
-        "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=#{@access_token}",
-        headers: { "Authorization" => "Bearer #{@id_token}" }
-      )
 
-      account_info = JSON.parse(response.body)
+      response =
+        HTTP.post("#{@config.API_URL}/auth/sso",
+                  json: { access_token: @access_token, id_token: @id_token})
+      raise if response.code >= 400
+
+      account_info = JSON.parse(response)['data']['attributes']
+
+      account_info = JSON.parse(response.body)['data']['attributes']
 
       puts "authorize_google_account.rb: account_info: #{account_info}"
 
       {
-        account: account_info['name'],
+        account: account_info['account'],
         auth_token: account_info['auth_token']
       }
     end
