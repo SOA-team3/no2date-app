@@ -146,19 +146,19 @@
 
               <!-- Create Event task Modal body -->
               <form class="p-4 md:p-5" role="form" action="/events" method="post" id="new-event-form">
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                  <div class="col-span-2 sm:col-span-1">
+                <div class="gap-4 mb-4 grid-cols-2">
+                  <div class="col-span-1 sm:col-span-1 mb-2">
                     <label for="title" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">* Title</label>
                     <input type="text" name="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter your Event name" required="">
                   </div>
 
-                  <div class="col-span-2 sm:col-span-1">
+                  <div class="col-span-1 sm:col-span-1 mb-2">
                       <label for="location" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Location</label>
                       <input type="text" name="location" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter Location">
                   </div>
 
                   <!-- DateTime -->
-                  <div class="col-span-2 sm:col-span-1">
+                  <div class="col-span-1 sm:col-span-1 mb-2">
                     <label
                       for="start_datetime"
                       class="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
@@ -174,7 +174,7 @@
 
                   </div>
 
-                  <div class="col-span-2 sm:col-span-1">
+                  <div class="col-span-1 sm:col-span-1 mb-2">
                     <label
                       for="end_datetime"
                       class="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
@@ -190,7 +190,7 @@
                   </div>
 
                   <!-- Select Option -->
-                  <div class="col-span-2">
+                  <div class="col-span-2 mb-2">
                     <label
                       for="time"
                       class="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
@@ -198,7 +198,7 @@
                     * Select Option
                     </label>
 
-                    <div class="flex justify-items-center">
+                    <div class="flex justify-items-center mb-2">
                       <label class="inline-flex items-center cursor-pointer">
                         <input type="hidden" name="is_flexible" value=<%=false%>>
                         <input type="checkbox" name='is_flexible' id="is_flexible" value=<%=true%> class="sr-only peer">
@@ -236,6 +236,7 @@
       </div>
 
        <!-- Tab buttons -->
+      <h2 class="text-blue-600"><strong><%=@current_account.username %>'s Event list</h2></strong>
       <div class="flex justify-start my-4">
         <button id="all-tab" class="mr-2 px-4 py-2 text-white bg-blue-600 rounded-r-md rounded-l-md hover:bg-blue-500 focus:outline-none">All</button>
         <button id="upcoming-tab" class="px-4 py-2 text-white bg-blue-600 rounded-r-md rounded-l-md hover:bg-blue-500 focus:outline-none">Upcoming</button>
