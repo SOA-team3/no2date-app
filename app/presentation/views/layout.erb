@@ -32,21 +32,6 @@
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
   </head>
 
-  <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh; /* 保证页面高度至少与视窗高度一样高 */
-    }
-
-    .content {
-      flex: 1; /* 让内容区域自动扩展填满剩余空间 */
-    }
-
-    footer {
-      flex-shrink: 0; /* 不要让 footer 缩小，保持在底部 */
-    }
-  </style>
   <body>
     <!-- Popper & Bootstrap Javascript (Load in this order) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -61,8 +46,8 @@
       </section>
     </div>
 
-    <!-- Additional scripts from home.erb -->
-    <script src="/assets/js/all.js"></script>
+    <!-- Additional scripts for erb -->
+    <script src="/assets/js/all.js" async></script>
     <!-- plugin for charts  -->
     <script src="/assets/js/plugins/chartjs.min.js" async></script>
     <!-- plugin for scrollbar  -->
@@ -82,6 +67,7 @@
   </body>
 
   <footer class="pt-4">
+    <hr class="h-1 bg-gray-300">
     <div class="w-full px-6 mx-auto">
       <div class="flex flex-wrap items-center -mx-3 lg:justify-center">
         <div class="w-full max-w-full px-3 mt-0 mb-6 shrink-0 lg:mb-0 lg:flex-none">

@@ -43,18 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-//To add an href attribute to each row in the events_all.erb table
-
-// document.addEventListener("DOMContentLoaded", function() {
-//     document.querySelectorAll('.clickable-row').forEach(row => {
-//       row.addEventListener('click', function() {
-//         window.location.href = this.getAttribute('data-href');
-//       });
-//     });
-//   });
-
-//To add an href attribute to each row in the appointments_all.erb table
-
+// To add an href attribute to each row in the appointments_all.erb table
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll('.appointment-row').forEach(row => {
       row.addEventListener('click', function() {
@@ -63,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  //
+  // tab switch
   document.getElementById('all-tab').addEventListener('click', function() {
     document.querySelectorAll('#event-table-body tr').forEach(row => {
       row.style.display = 'table-row';
@@ -81,3 +70,14 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   });
+
+// Verify check in register.erb
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('register-form').addEventListener('submit', function(event) {
+    var termsCheckbox = document.getElementById('terms');
+    if (!termsCheckbox.checked) {
+      alert('You must agree to the Terms and Conditions to sign up.');
+      event.preventDefault(); // alert message to prevent submit
+    }
+  });
+});
