@@ -31,6 +31,22 @@
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
   </head>
+
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* 保证页面高度至少与视窗高度一样高 */
+    }
+
+    .content {
+      flex: 1; /* 让内容区域自动扩展填满剩余空间 */
+    }
+
+    footer {
+      flex-shrink: 0; /* 不要让 footer 缩小，保持在底部 */
+    }
+  </style>
   <body>
     <!-- Popper & Bootstrap Javascript (Load in this order) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -61,6 +77,8 @@
     <script src="node_modules/@material-tailwind/html/scripts/collapse.js"></script>
     <!-- from cdn -->
     <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/collapse.js"></script>
+    <!-- for events_all.erb -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   </body>
 
   <footer class="pt-4">
