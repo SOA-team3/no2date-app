@@ -2,8 +2,8 @@
 
   <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
 
+    <!--calendar start-->
     <div class="w-full px-6 py-6 mx-auto">
-      <!--calendar start-->
       <div>
         <link rel="dns-prefetch" href="//unpkg.com" />
         <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
@@ -146,19 +146,19 @@
 
               <!-- Create Event task Modal body -->
               <form class="p-4 md:p-5" role="form" action="/events" method="post" id="new-event-form">
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                  <div class="col-span-2 sm:col-span-1">
+                <div class="gap-4 mb-4 grid-cols-2">
+                  <div class="col-span-1 sm:col-span-1 mb-2">
                     <label for="title" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">* Title</label>
                     <input type="text" name="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter your Event name" required="">
                   </div>
 
-                  <div class="col-span-2 sm:col-span-1">
+                  <div class="col-span-1 sm:col-span-1 mb-2">
                       <label for="location" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Location</label>
                       <input type="text" name="location" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter Location">
                   </div>
 
                   <!-- DateTime -->
-                  <div class="col-span-2 sm:col-span-2">
+                  <div class="col-span-1 sm:col-span-1 mb-2">
                     <label
                       for="start_datetime"
                       class="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
@@ -174,7 +174,7 @@
 
                   </div>
 
-                  <div class="col-span-2 sm:col-span-2">
+                  <div class="col-span-1 sm:col-span-1 mb-2">
                     <label
                       for="end_datetime"
                       class="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
@@ -190,7 +190,7 @@
                   </div>
 
                   <!-- Select Option -->
-                  <div class="col-span-2">
+                  <div class="col-span-2 mb-2">
                     <label
                       for="time"
                       class="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
@@ -198,7 +198,7 @@
                     * Select Option
                     </label>
 
-                    <div class="flex justify-items-center">
+                    <div class="flex justify-items-center mb-2">
                       <label class="inline-flex items-center cursor-pointer">
                         <input type="hidden" name="is_flexible" value=<%=false%>>
                         <input type="checkbox" name='is_flexible' id="is_flexible" value=<%=true%> class="sr-only peer">
@@ -236,6 +236,7 @@
       </div>
 
        <!-- Tab buttons -->
+      <h2 class="text-blue-600"><strong><%=@current_account.username %>'s Event list</h2></strong>
       <div class="flex justify-start my-4">
         <button id="all-tab" class="mr-2 px-4 py-2 text-white bg-blue-600 rounded-r-md rounded-l-md hover:bg-blue-500 focus:outline-none">All</button>
         <button id="upcoming-tab" class="px-4 py-2 text-white bg-blue-600 rounded-r-md rounded-l-md hover:bg-blue-500 focus:outline-none">Upcoming</button>
@@ -244,7 +245,7 @@
       <!--event daily table start-->
       <!-- Event table -->
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-
+        <!-- table header -->
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -291,12 +292,15 @@
               </th>
               <th scope="col" class="px-6 py-3">
               </th>
+              <%# <th scope="col" class="px-6 py-3">
+              </th> %>
             </tr>
           </thead>
 
+          <!-- table content -->
           <tbody id="event-table-body">
-            <% require 'time' %>
-            <% require 'active_support/all' %>
+            <% require "time" %>
+            <% require "active_support/all" %>
 
             <% current_time = Time.now.in_time_zone('Asia/Taipei') %>
             <% formatted_current_time = current_time.strftime("%Y-%m-%d %H:%M:%S %z") %>
@@ -304,7 +308,9 @@
             <% sorted_events = events.all.sort_by { |event| Time.strptime(event.start_datetime, "%Y-%m-%d %H:%M:%S %z") } %>
 
             <% sorted_events.each do |event| %>
-              <tr class="cursor-pointer clickable-row odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" data-row-id="<%= event.id %>" data-href="/events/<%= event.id %>" data-start-datetime="<%= event.start_datetime %>">
+              <!-- <tr class="cursor-pointer clickable-row odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" data-row-id="<%= event.id %>" data-href="/events/<%= event.id %>" data-start-datetime="<%= event.start_datetime %>">
+              -->
+              <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" data-row-id="<%= event.id %>"  data-start-datetime="<%= event.start_datetime %>">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   <%= event.title %>
                 </th>
@@ -320,6 +326,15 @@
                 <td class="px-6 py-4">
                   <%= event.description %>
                 </td>
+                <!-- To see event detail -->
+                <td class="px-6 py-4 flex space-x-4">
+                  <a href="/events/<%= event.id %>" class="SeeMoreButton font-medium text-black-600 dark:text-black-500 hover:underline flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                    </svg>
+                  </a>
+                </td>
+                <!-- To delete event -->
                 <td class="px-6 py-4 flex space-x-4">
                   <a href="#" class="deleteButton font-medium text-red-600 dark:text-red-500 hover:underline flex">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -330,6 +345,7 @@
               </tr>
             <% end %>
           </tbody>
+
         </table>
       </div>
 
