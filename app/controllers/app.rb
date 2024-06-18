@@ -44,8 +44,23 @@ module No2Date
       routing.multi_route
 
       # GET /
-      routing.root do
-        view 'home', locals: { current_account: @current_account }
+      if @current_account.logged_in?
+        event_list = GetAllEvents.new(App.config).call(@current_account)
+        if event_list.nil?
+          events = []
+        else
+          events = Events.new(event_list)
+        end
+
+        routing.root do
+          view :home,
+                locals: { current_account: @current_account, events: }
+        end
+
+      else
+        routing.root do
+          view :home, locals: { current_account: @current_account}
+        end
       end
     end
   end
