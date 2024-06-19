@@ -1,14 +1,14 @@
-// 取得今天的日期
+// Get today's date
 const today = new Date();
 
 // 取得今天是一周中的星期幾（0代表星期日，1代表星期一，以此類推）
 const dayOfWeek = today.getDay();
 
-// 計算本週的星期日的日期
+// Calculate Sunday's date
 const sunday = new Date(today);
 sunday.setDate(today.getDate() - dayOfWeek);
 
-// 建立一周的日期
+// Create one week's dates
 const weekDates = [];
 for (let i = 0; i < 7; i++) {
   const date = new Date(sunday);
@@ -16,20 +16,20 @@ for (let i = 0; i < 7; i++) {
   weekDates.push(date);
 }
 
-// 將日期格式化為英文縮寫的星期幾
+// Change date format into abbr
 function formatDayOfWeek(date) {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   return daysOfWeek[date.getDay()];
 }
 
-// 將日期格式化為 "月份/日期" 的形式
+// Change datetime format into mm/dd
 function formatDate(date) {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   return `${month}/${day}`;
 }
 
-// 在HTML中顯示一周的日期
+// Show dates in one week
 const weekDatesContainer = document.getElementById("week-dates");
 weekDates.forEach(date => {
   const formattedDate = formatDate(date);
@@ -47,3 +47,4 @@ weekDates.forEach(date => {
     </div>
   `;
 });
+

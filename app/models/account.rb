@@ -25,5 +25,6 @@ module No2Date
     def logged_in?
       !logged_out?
     end
+
   end
 end

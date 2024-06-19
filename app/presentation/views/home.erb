@@ -1,39 +1,47 @@
 <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
-
   <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
 
     <!-- Display Section -->
     <% if @current_account.logged_in? %>
-    <!-- cards -->
-    <div class="w-full px-6 py-6 mx-auto">
-      <!-- row 1 -->
-      <div class="flex flex-wrap -mx-3">
-          <!--test-->
-        <div id="week-dates" class='flex justify-start md:justify-center mx-auto py-4 px-2 md:mx-12 mb-10'></div>
-        <!---->
-      </div>
 
+      <div class="w-full px-6 py-6 mx-auto">
+        <!-- top row -->
+        <div class="flex flex-wrap -mx-3">
+          <!-- Display one week and highlight today's date -->
+          <div id="week-dates" class='flex justify-start md:justify-center mx-auto py-4 px-2 md:mx-12 mb-10'></div>
+        </div>
 
-      <!-- cards row 2 -->
-      <div class="flex flex-wrap mt-6 -mx-3">
-      <div class="w-full px-3 mb-6 lg:mb-0 lg:w-10/12 lg:flex-none">
-        <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
-          <div class="flex-auto p-4">
-                <div class="flex flex-col h-full">
-                    <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                      <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
-                      </svg>
-                      Today's Schedule </h6>
-                    </div>
-                    <div class="flex-auto p-4 pt-6">
-                      <ul class="flex flex-col pl-0 mb-0 rounded-lg">
+        <!-- Display event contents -->
+        <div class="flex flex-wrap mt-6 -mx-3">
+        <div class="w-full px-3 mb-6 lg:mb-0 lg:w-10/12 lg:flex-none">
+          <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
+            <div class="flex-auto p-4">
+              <div class="flex flex-col h-full">
+                <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
+                  <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                  </svg>
+                  Today's Events </h6>
+                </div>
+
+                <div class="flex-auto p-4 pt-6">
+                  <!-- Display  -->
+                  <ul class="flex flex-col pl-0 mb-0 rounded-lg">
+                    <% events.all.each do |event| %>
+
+                      <% require 'date' %>
+                      <% current_date = Date.today %>
+                      <% start_datetime = DateTime.parse(event.start_datetime) %>
+                      <% end_datetime = DateTime.parse(event.end_datetime) %>
+
+                      <% if current_date >= start_datetime.to_date && current_date <= end_datetime.to_date %>
+                        <!-- Today's Event rows -->
                         <li class="relative flex p-6 mb-2 border-0 rounded-t-inherit rounded-xl bg-gray-50">
                           <div class="flex flex-col">
                             <div class="flex mb-2">
                               <div class="flex items-center justify-center w-5 h-5 mr-2 text-center bg-center rounded fill-current shadow-soft-2xl bg-gradient-to-tl from-purple-700 to-pink-500 text-neutral-900">
                                 <svg width="10px" height="10px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                  <title>document</title>
+                                  <title>Event</title>
                                   <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                       <g transform="translate(1716.000000, 291.000000)">
@@ -46,7 +54,7 @@
                                   </g>
                                 </svg>
                               </div>
-                              <p class="mb-3 text-sm font-bold leading-normal">Schedule title</p>
+                              <p class="mb-3 text-sm font-bold leading-normal"><%=event.title%></p>
                             </div>
 
                             <span class="mb-2 leading-tight text-xs">
@@ -54,30 +62,59 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                               </svg>
-                              Location: <span class="font-semibold text-slate-700 sm:ml-2">TSMC Building</span></span>
+                              <% if event.location.nil? %>
+                                Location: <span class="font-semibold text-gray-400 sm:ml-2"><%= "No location"%></span>
+                              <% else %>
+                                Location: <span class="font-semibold text-slate-700 sm:ml-2"><%= event.location%></span>
+                              <% end %>
+                            </span>
+
                             <span class="mb-2 leading-tight text-xs">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-                            Start Time:
-                            <span class="font-semibold text-slate-700 sm:ml-2"> 08:00 AM </span></span>
-                            <span class="leading-tight text-xs">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                              </svg>
+                              Start Time:
+                              <span class="font-semibold text-slate-700 sm:ml-2"> <%=event.start_datetime%> </span>
+                            </span>
+
+                            <span class="mb-2 leading-tight text-xs">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                               </svg>
                               End Time:
-                            <span class="font-semibold text-slate-700 sm:ml-2"> 09:00 AM </span></span>
+                              <span class="font-semibold text-slate-700 sm:ml-2"> <%=event.end_datetime%> </span>
+                            </span>
+
+                            <span class="mb-2 leading-tight text-xs">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" />
+                              </svg>
+                              <% if event.description.nil? %>
+                                <%description = "No description"%>
+                                <%font_color = 400%>
+                              <% elsif event.description.length > 50 %>
+                                <%description = event.description[0, 50] %>...
+                                <%font_color = 600%>
+                              <% else %>
+                                <%description = event.description %>
+                                <%font_color = 900%>
+                              <% end %>
+                              Description: <span class="font-semibold text-gray-<%= font_color%> sm:ml-2"><%=description%></span>
+                            </span>
+
+
                           </div>
                           <div class="ml-auto text-right">
                           </div>
                         </li>
 
-                        <li class="relative flex p-6 mt-4 mb-2 border-0 rounded-xl bg-gray-50">
+                        <!-- Appointment cards row example -->
+                        <%# <li class="relative flex p-6 mt-4 mb-2 border-0 rounded-xl bg-gray-50">
                           <div class="flex flex-col">
                             <div class="flex mb-2">
                               <div class="flex items-center justify-center w-5 h-5 mr-2 text-center bg-center rounded fill-current shadow-soft-2xl bg-gradient-to-tl from-red-500 to-yellow-400 text-neutral-900">
                                 <svg width="10px" height="10px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                  <title>credit-card</title>
+                                  <title>Appointment</title>
                                   <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                       <g transform="translate(1716.000000, 291.000000)">
@@ -113,29 +150,35 @@
                           </div>
                           <div class="ml-auto text-right">
                           </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-          </div>
-        </div>
-      </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end cards -->
-    <% else %>
-    <h1>Welcome to No2Date</h1>
-      <p>This site provides an online calendar tool aimed at facilitating event coordination among multiple participants.</p>
-      <p>It enables individuals to indicate their available times and dates, as well as view the availability of others. This helps the group collectively determine a mutually convenient meeting time.</p>
+                        </li> %>
 
-      <p>
-        <i>Users can arrange meetings by comparing their regular schedules on their own calendars, enabling them to further edit and hide personal information. This project provides users with overlapped available times but eliminates the repetitive work of setting up their schedules.</i>
-      </p>
-      <p>
-        <strong><a href="/auth/login">Login to start!!</a></strong>
-      </p>
+                      <% end %>
+
+                    <% end %>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% else %>
+      <h1>Welcome to No2Date</h1>
+      <hr class="h-2 bg-gray-300">
+        <p>This site provides an online calendar tool aimed at facilitating event coordination among multiple participants.</p>
+        <p>It enables individuals to indicate their available times and dates, as well as view the availability of others. This helps the group collectively determine a mutually convenient meeting time.</p>
+
+        <p>
+          <i>Users can arrange meetings by comparing their regular schedules on their own calendars, enabling them to further edit and hide personal information. This project provides users with overlapped available times but eliminates the repetitive work of setting up their schedules.</i>
+        </p>
+        <p>
+          <strong><a href="/auth/login">Login to start!!</a></strong>
+        </p>
     <% end %>
     </div>
 
