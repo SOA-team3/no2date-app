@@ -86,7 +86,7 @@ module No2Date
         # POST /appointments/
         routing.post do
           routing.redirect '/auth/login' unless @current_account.logged_in?
-          puts "APPT: #{routing.params}"
+
           appointment_data = Form::NewAppointment.new.call(routing.params)
           if appointment_data.failure?
             flash[:error] = Form.message_values(appointment_data)
