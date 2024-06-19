@@ -130,29 +130,31 @@
     <!-- Show participant content end -->
 
     <!-- Show overlap freetime content start-->
-    <ul class="list-group">
-      <h6>You can have the appointment in these time slots:</h6>
-      <% free_times = appointment.free_time_of_appointment %>
-      <% free_times.each do |day_info| %>
-        <li class="list-group-item clearfix">
-          <% day_info = day_info.to_h %>
-          <%= "Date: #{day_info['day']}" %>
-            <% if day_info["free_times"].empty?%>
-              <li style="text-align: center;">
-                No available time!
-              </li>
-            <% else %>
-              <% day_info["free_times"].each do |free_time| %>
-                <% free_time = free_time.to_h %>
-                <span class="float-end">
-                  Free from <%= DateTime.iso8601(free_time["start"]).strftime('%H:%M') %> - <%= DateTime.iso8601(free_time["end"]).strftime('%H:%M') %>
-                </span>
-                <br>
+    <%# <div> %>
+      <ul class="list-group">
+        <h6>You can have the appointment in these time slots:</h6>
+        <% free_times = appointment.free_time_of_appointment %>
+        <% free_times.each do |day_info| %>
+          <li class="list-group-item clearfix">
+            <% day_info = day_info.to_h %>
+            <%= "Date: #{day_info['day']}" %>
+              <% if day_info["free_times"].empty?%>
+                <li style="text-align: center;">
+                  No available time!
+                </li>
+              <% else %>
+                <% day_info["free_times"].each do |free_time| %>
+                  <% free_time = free_time.to_h %>
+                  <span class="float-end">
+                    Free from <%= DateTime.iso8601(free_time["start"]).strftime('%H:%M') %> - <%= DateTime.iso8601(free_time["end"]).strftime('%H:%M') %>
+                  </span>
+                  <br>
+              <% end %>
             <% end %>
-          <% end %>
 
-        </li>
-      <% end %>
-    </ul>
+          </li>
+        <% end %>
+      </ul>
+    <%# </div> %>
   </main>
 </body>

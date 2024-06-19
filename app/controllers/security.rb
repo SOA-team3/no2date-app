@@ -12,9 +12,9 @@ module No2Date
     plugin :environments
     plugin :multi_route
 
-    FONT_SRC = %w[https://cdn.jsdelivr.net].freeze
-    SCRIPT_SRC = %w[https://cdn.jsdelivr.net].freeze
-    STYLE_SRC = %w[https://bootswatch.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com].freeze
+    FONT_SRC = %w['self' fonts.googleapis.com].freeze
+    STYLE_SRC = %w['self' bootswatch.com cdnjs.cloudflare.com unpkg.com api.nepcha.com cdn.jsdelivr.net /assets/css].freeze
+    SCRIPT_SRC = %w['self' kit.fontawesome.com unpkg.com buttons.github.io cdnjs.cloudflare.com api.nepcha.com cdn.jsdelivr.net].freeze
 
     configure :production do
       use Rack::SslEnforcer, hsts: true
@@ -39,8 +39,6 @@ module No2Date
       config.x_permitted_cross_domain_policies = 'none'
       config.referrer_policy = 'origin-when-cross-origin'
 
-      # note: single-quotes needed around 'self' and 'none' in CSPs
-      # rubocop:disable Lint/PercentStringArray
       config.csp = {
         report_only: false,
         preserve_schemes: true,
@@ -48,16 +46,26 @@ module No2Date
         child_src: %w['self'],
         connect_src: %w[wws:],
         img_src: %w['self'],
-        font_src: %w['self'] + FONT_SRC,
-        script_src: %w['self'] + SCRIPT_SRC,
-        style_src: %W['self'] + STYLE_SRC,
+        font_src: FONT_SRC,
+        script_src: SCRIPT_SRC + [
+          "'self'",
+          '/assets/js/all.js',
+          '/assets/js/plugins/chartjs.min.js',
+          '/assets/js/plugins/perfect-scrollbar.min.js',
+          '/assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5',
+          '/assets/js/calendar.js',
+          '/assets/js/appointment_event.js',
+          'node_modules/@material-tailwind/html/scripts/collapse.js',
+          'https://unpkg.com/@material-tailwind/html@latest/scripts/collapse.js',
+          'https://buttons.github.io/buttons.js'
+        ],
+        style_src: STYLE_SRC,
         form_action: %w['self'],
         frame_ancestors: %w['none'],
         object_src: %w['none'],
         block_all_mixed_content: true,
         report_uri: %w[/security/report_csp_violation]
       }
-      # rubocop:enable Lint/PercentStringArray
     end
 
     route('security') do |routing|
