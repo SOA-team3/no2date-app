@@ -70,8 +70,6 @@ module No2Date
         json: signed_sso_info
       )
 
-      account_info = JSON.parse(response)['data']['attributes']
-
       account_info = JSON.parse(response.body)['data']['attributes']
 
       puts "authorize_google_account.rb: account_info: #{account_info}"
