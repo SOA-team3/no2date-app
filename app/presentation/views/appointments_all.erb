@@ -2,20 +2,19 @@
   <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
 
     <div class="w-full px-6 py-6 mx-auto">
-      <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
-        <div class="container mx-auto px-4 py-2 ">
-          <div class="flex justify-between">
-            <div class="font-bold text-gray-800 text-xl mb-4">
-              <%=@current_account.username %>'s Appointment
-            </div>
-            <button data-modal-target="appointment-modal" data-modal-toggle="appointment-modal" class="mb-3 ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-              + Add Appointment
-            </button>
-
+      <div class="container mx-auto px-4 py-2 ">
+        <div class="flex justify-between">
+          <div class="font-bold text-gray-800 text-xl mb-4">
+            <%=@current_account.username %>'s Appointment
           </div>
-        </div>
+          <button data-modal-target="appointment-modal" data-modal-toggle="appointment-modal" class="mb-3 ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+            + Add Appointment
+          </button>
 
+        </div>
       </div>
+
+
     </div>
 
     <!-- add appointment Modal start -->

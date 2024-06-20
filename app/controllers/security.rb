@@ -12,9 +12,40 @@ module No2Date
     plugin :environments
     plugin :multi_route
 
-    FONT_SRC = %w['self' fonts.googleapis.com].freeze
-    STYLE_SRC = %w['self' bootswatch.com cdnjs.cloudflare.com unpkg.com api.nepcha.com cdn.jsdelivr.net /assets/css].freeze
-    SCRIPT_SRC = %w['self' kit.fontawesome.com unpkg.com buttons.github.io cdnjs.cloudflare.com api.nepcha.com cdn.jsdelivr.net].freeze
+    # Get all formatted file names in the specified directory
+    def self.get_filenames(directory, extension)
+      files = Dir.glob(File.join(directory, "*#{extension}"))
+      files.map { |file| File.basename(file) }
+    end
+
+    # Get js directory
+    js_directory = 'app/presentation/assets/js'
+    # Get all filename in JavaScript format
+    js_filenames = get_filenames(js_directory, '.js')
+    js_filenames = js_filenames.map { |js| "/assets/js/#{js}" }
+
+    # Define used front-end SRC
+    FONT_SRC = ["'self'", 'fonts.googleapis.com', 'kit.fontawesome.com/42d5adcbca.js'].freeze
+    STYLE_SRC = [
+      "'self'",
+      'bootswatch.com',
+      'cdnjs.cloudflare.com',
+      'unpkg.com',
+      'api.nepcha.com',
+      'cdn.jsdelivr.net',
+      '/assets/css',
+      'https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css'
+    ].freeze
+    SCRIPT_SRC = [
+      "'self'",
+      'unpkg.com',
+      'buttons.github.io',
+      'cdnjs.cloudflare.com',
+      'api.nepcha.com',
+      'cdn.jsdelivr.net',
+      '/assets/js',
+      'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js'
+    ].freeze
 
     configure :production do
       use Rack::SslEnforcer, hsts: true
@@ -48,17 +79,14 @@ module No2Date
         img_src: %w['self'],
         font_src: FONT_SRC,
         script_src: SCRIPT_SRC + [
-          "'self'",
           '/assets/js/all.js',
           '/assets/js/plugins/chartjs.min.js',
           '/assets/js/plugins/perfect-scrollbar.min.js',
           '/assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5',
           '/assets/js/calendar.js',
           '/assets/js/appointment_event.js',
-          'node_modules/@material-tailwind/html/scripts/collapse.js',
-          'https://unpkg.com/@material-tailwind/html@latest/scripts/collapse.js',
-          'https://buttons.github.io/buttons.js'
-        ],
+          'node_modules/@material-tailwind/html/scripts/collapse.js'
+        ] + js_filenames,
         style_src: STYLE_SRC,
         form_action: %w['self'],
         frame_ancestors: %w['none'],
