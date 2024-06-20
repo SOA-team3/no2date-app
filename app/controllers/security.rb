@@ -85,7 +85,9 @@ module No2Date
           '/assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5',
           '/assets/js/calendar.js',
           '/assets/js/appointment_event.js',
-          'node_modules/@material-tailwind/html/scripts/collapse.js'
+          'node_modules/@material-tailwind/html/scripts/collapse.js',
+          # ignore script in erb file
+          "'unsafe-inline'"
         ] + js_filenames,
         style_src: STYLE_SRC,
         form_action: %w['self'],
