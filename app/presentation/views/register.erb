@@ -32,47 +32,51 @@
                     <input type="text" name='email' id='email_input' class="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Email" aria-label="Email" aria-describedby="email-addon" />
                   </div>
 
-                  <!-- Policy Agreement-->
-                  <div class="flex justify-center min-h-6 pl-6.92 mb-0.5 block">
-                    <div class="form-check">
-                      <input type="checkbox" id="terms" class="mr-2 w-4.92 h-4.92 ease-soft -ml-6.92 rounded-1.4 checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:text-xxs after:font-awesome after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all after:content-['\f00c'] checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100" />
-                      <label class="form-check-label" for="terms">
-                        I agree the <a href="#" class="font-bold text-slate-700" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
-                      </label>
+                  <div class="p-4">
+                    <input id="terms" class="form-check-input" type="checkbox" value="">
+                    <label class="form-check-label ml-2" for="terms">
+                      I agree the <a href="#" class="font-bold text-gray-700" onclick="openModal('termsModal')">Terms and Conditions</a>
+                    </label>
+                  </div>
+
+                  <!-- Modal -->
+                  <div id="termsModal" class="container z-50 fixed inset-0 overflow-y-auto px-4 py-6 flex items-center justify-center z-50 hidden">
+                    <div class="modal-content bg-white rounded-lg shadow-lg max-w-lg mx-auto p-6">
+                        <div class="modal-header flex justify-between items-center">
+                            <h5 class="modal-title text-xl font-semibold">Terms and Conditions</h5>
+                        </div>
+                        <div class="modal-body mt-4">
+                            <p><strong>Account:</strong></p>
+                            <ul class="list-disc pl-5">
+                                <li>View, Edit, Delete: Allowed if the user is the account owner.</li>
+                            </ul>
+                            <p><strong>Appointment:</strong></p>
+                            <ul class="list-disc pl-5">
+                                <li>View, Edit: Allowed for owners and participants.</li>
+                                <li>Delete, Add Participants, Remove Participants: Allowed for owners.</li>
+                                <li>Leave: Allowed for participants.</li>
+                                <li>Participate: Allowed for non-owners and non-participants.</li>
+                            </ul>
+                            <p><strong>Event:</strong></p>
+                            <ul class="list-disc pl-5">
+                                <li>View, Edit, Delete: Allowed for event owners.</li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer mt-4 flex justify-end">
+                            <button type="button" class="px-6 py-2.5 rounded-md text-black text-sm font-semibold border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200" onclick="closeModal('termsModal')">Close</button>
+                        </div>
                     </div>
                   </div>
 
-                  <!-- Policy Modal -->
-                  <%# <div class="modal" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <p><strong>Account:</strong></p>
-                          <ul>
-                            <li>View, Edit, Delete: Allowed if the user is the account owner.</li>
-                          </ul>
-                          <p><strong>Appointment:</strong></p>
-                          <ul>
-                            <li>View, Edit: Allowed for owners and participants.</li>
-                            <li>Delete, Add Participants, Remove Participants: Allowed for owners.</li>
-                            <li>Leave: Allowed for participants.</li>
-                            <li>Participate: Allowed for non-owners and non-participants.</li>
-                          </ul>
-                          <p><strong>Event:</strong></p>
-                          <ul>
-                            <li>View, Edit, Delete: Allowed for event owners.</li>
-                          </ul>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> %>
+                <script>
+                    function openModal(id) {
+                        document.getElementById(id).classList.remove('hidden');
+                    }
+
+                    function closeModal(id) {
+                        document.getElementById(id).classList.add('hidden');
+                    }
+                </script>
 
 
                   <!-- Submit -->
