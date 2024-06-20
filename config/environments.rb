@@ -4,7 +4,6 @@ require 'delegate'
 require 'roda'
 require 'figaro'
 require 'logger'
-require 'rack/ssl-enforcer'
 require 'rack/session'
 require 'rack/session/redis'
 require_relative '../require_app'
@@ -18,11 +17,11 @@ module No2Date
 
     # Environment variables setup
     Figaro.application = Figaro::Application.new(
-      environment:,
+      environment: environment,
       path: File.expand_path('config/secrets.yml')
     )
     Figaro.load
-    def self.config = Figaro.env
+    def self.config() = Figaro.env
 
     # HTTP Request logging
     configure :development, :production do
@@ -31,12 +30,13 @@ module No2Date
 
     # Custom events logging
     LOGGER = Logger.new($stderr)
-    def self.logger = LOGGER
+    def self.logger() = LOGGER
 
     # Session configuration
     ONE_MONTH = 30 * 24 * 60 * 60
     @redis_url = ENV.delete('REDISCLOUD_URL')
     SecureMessage.setup(ENV.delete('MSG_KEY'))
+    SignedMessage.setup(config)
     SecureSession.setup(@redis_url) # only used in dev to wipe session store
 
     configure :development, :test do
@@ -44,10 +44,15 @@ module No2Date
       logger.level = Logger::ERROR
 
       # use Rack::Session::Cookie,
-      #     expire_after: ONE_MONTH, secret: config.SESSION_SECRET
+      #     secret: config.SESSION_SECRET,
+      #     expire_after: ONE_MONTH,
+      #     httponly: true,
+      #     same_site: :lax,
 
       use Rack::Session::Pool,
-          expire_after: ONE_MONTH
+          expire_after: ONE_MONTH,
+          httponly: true,
+          same_site: :lax
 
       # use Rack::Session::Redis,
       #     expire_after: ONE_MONTH,

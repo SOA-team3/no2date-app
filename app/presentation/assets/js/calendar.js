@@ -1,99 +1,145 @@
+
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 function app() {
     return {
         month: '',
         year: '',
         no_of_days: [],
         blankdays: [],
-        days_in_month: [],
-        days_of_week: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        events: [],
-        MONTH_NAMES: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        DAYS: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        colors: ['blue', 'red', 'yellow', 'green', 'purple'], // List of colors
+        days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+
+        events: [
+            {
+                event_date: new Date(2020, 3, 1),
+                event_title: "April Fool's Day",
+                event_theme: 'blue'
+            },
+
+            {
+                event_date: new Date(2020, 3, 10),
+                event_title: "Birthday",
+                event_theme: 'red'
+            },
+
+            {
+                event_date: new Date(2020, 3, 16),
+                event_title: "Upcoming Event",
+                event_theme: 'green'
+            }
+        ],
+        event_title: '',
+        event_date: '',
+        event_theme: 'blue',
+
+        themes: [
+            {
+                value: "blue",
+                label: "Blue Theme"
+            },
+            {
+                value: "red",
+                label: "Red Theme"
+            },
+            {
+                value: "yellow",
+                label: "Yellow Theme"
+            },
+            {
+                value: "green",
+                label: "Green Theme"
+            },
+            {
+                value: "purple",
+                label: "Purple Theme"
+            }
+        ],
+
+        openEventModal: false,
 
         initDate() {
             let today = new Date();
             this.month = today.getMonth();
             this.year = today.getFullYear();
-            this.getNoOfDays();
-        },
-
-        isHoliday(year, month, date) {
-            let holidays = [
-                new Date(year, 0, 1), // New Year
-                new Date(year, 11, 25), // Christmas
-            ];
-            return holidays.some(holiday => holiday.getTime() === new Date(year, month, date).getTime());
+            this.datepickerValue = new Date(this.year, this.month, today.getDate()).toDateString();
         },
 
         isToday(date) {
             const today = new Date();
             const d = new Date(this.year, this.month, date);
-            return today.toDateString() === d.toDateString();
+
+            return today.toDateString() === d.toDateString() ? true : false;
         },
+        isHoliday(year, month, day) {
+            // Get the day of the week for the specified date, where Sunday is 0, Monday is 1, and so on
+            const dayOfWeek = new Date(year, month, day).getDay();
 
-        goToToday() {
-            this.initDate();
-        },
-
-        showEventModal(date) {
-            // Show event modal for the selected date (functionality can be expanded as needed)
-        },
-
-        addEvent(event) {
-            const startDate = new Date(event.start_date);
-            const endDate = new Date(event.end_date);
-            let currentDate = startDate;
-
-            // Get a random color for the event
-            const randomColor = this.colors[Math.floor(Math.random() * this.colors.length)];
-
-            while (currentDate <= endDate) {
-                this.events.push({
-                    event_date: new Date(currentDate),
-                    event_title: event.event_title,
-                    event_theme: randomColor,
-                });
-                currentDate.setDate(currentDate.getDate() + 1);
+            // If it's Saturday (6) or Sunday (0), consider it a holiday
+            if (dayOfWeek === 6 || dayOfWeek === 0) {
+                return true;
+            } else {
+                return false;
             }
+        },
+        showEventModal(date) {
+            // open the modal
+            this.openEventModal = true;
+            this.event_date = new Date(this.year, this.month, date).toDateString();
+        },
+
+        addEvent() {
+            if (this.event_title == '') {
+                return;
+            }
+
+            this.events.push({
+                event_date: this.event_date,
+                event_title: this.event_title,
+                event_theme: this.event_theme
+            });
+
+            console.log(this.events);
+
+            // clear the form data
+            this.event_title = '';
+            this.event_date = '';
+            this.event_theme = 'blue';
+
+            //close the modal
+            this.openEventModal = false;
         },
 
         getNoOfDays() {
-            let days_in_month = new Date(this.year, this.month + 1, 0).getDate();
+            let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
 
             // find where to start calendar day of week
-            let day_of_week = new Date(this.year, this.month).getDay();
-
+            let dayOfWeek = new Date(this.year, this.month).getDay();
             let blankdaysArray = [];
-            for ( var i=1; i <= day_of_week; i++) {
+            for ( var i=1; i <= dayOfWeek; i++) {
                 blankdaysArray.push(i);
             }
 
             let daysArray = [];
-            for ( var i=1; i <= days_in_month; i++) {
+            for ( var i=1; i <= daysInMonth; i++) {
                 daysArray.push(i);
             }
 
             this.blankdays = blankdaysArray;
             this.no_of_days = daysArray;
         },
+        goToToday() {
+            // 獲取當前日期
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = today.getMonth();
+
+            // 設置月份和年份為當前日期的月份和年份
+            this.month = month;
+            this.year = year;
+
+            // 更新行事曆
+            this.getNoOfDays();
+        }
     }
 }
-
-document.addEventListener('alpine:init', () => {
-    Alpine.data('app', app);
-});
-
-document.getElementById('taskForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const event = {
-        event_title: formData.get('name'),
-        start_date: formData.get('startDate'),
-        end_date: formData.get('endDate'),
-        event_theme: 'blue' // You can add a dropdown for theme selection in the form if needed
-    };
-
-    document.querySelector('[x-data="app()"]').__x.$data.addEvent(event);
-    document.querySelector('[data-modal-toggle="crud-modal"]').click(); // Close the modal
-});
