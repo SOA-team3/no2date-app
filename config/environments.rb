@@ -7,6 +7,7 @@ require 'logger'
 require 'rack/session'
 require 'rack/session/redis'
 require_relative '../require_app'
+require 'rack/ssl-enforcer'
 
 require_app('lib')
 
