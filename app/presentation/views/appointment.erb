@@ -13,12 +13,12 @@
           <div class="col-xs-3 text-xl">
             <dt>Description:</dt>
           </div>
-          <div class="col-xs-9 text-lg">
+          <div class="col-xs-9">
             <% if appointment.description.nil? %>
               <dd class="blockquote text-gray-400">No description</dd>
             <% else %>
-              <div class="bg-gray-100 p-4 rounded mt-2 max-h-50 overflow-y-auto">
-                <dd class="blockquote"><%= appointment.description %></dd>
+              <div class="bg-gray-100 p-4 rounded mt-2 overflow-auto h-72 relative dark:bg-slate-800 dark:highlight-white/5 ring-1 ring-black/5 rounded-xl flex flex-col divide-y dark:divide-slate-200/5">
+                <dd class="blockquote text-base"><%= appointment.description %></dd>
               </div>
             <% end %>
           </div>
