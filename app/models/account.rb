@@ -3,7 +3,7 @@
 module No2Date
   # Behaviors of the currently logged in account
   class Account
-    def initialize(account_info, auth_token=nil)
+    def initialize(account_info, auth_token = nil)
       @account_info = account_info
       @auth_token = auth_token
     end
@@ -25,6 +25,5 @@ module No2Date
     def logged_in?
       !logged_out?
     end
-
   end
 end

@@ -12,7 +12,7 @@ module No2Date
     def call(current_account, appt_id)
       puts "GetAppointment appt_id: #{appt_id}"
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                    .get("#{@config.API_URL}/appointments/#{appt_id}")
+                     .get("#{@config.API_URL}/appointments/#{appt_id}")
 
       puts "GetAppointment response: #{response.inspect}"
 

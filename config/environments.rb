@@ -17,11 +17,11 @@ module No2Date
 
     # Environment variables setup
     Figaro.application = Figaro::Application.new(
-      environment: environment,
+      environment:,
       path: File.expand_path('config/secrets.yml')
     )
     Figaro.load
-    def self.config() = Figaro.env
+    def self.config = Figaro.env
 
     # HTTP Request logging
     configure :development, :production do
@@ -30,7 +30,7 @@ module No2Date
 
     # Custom events logging
     LOGGER = Logger.new($stderr)
-    def self.logger() = LOGGER
+    def self.logger = LOGGER
 
     # Session configuration
     ONE_MONTH = 30 * 24 * 60 * 60

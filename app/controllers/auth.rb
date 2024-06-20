@@ -13,8 +13,8 @@ module No2Date
 
       # "#{url}?client_id=#{client_id}&scope=#{scope}"
       query = {
-        'redirect_uri' => config.REDIRECT_URI,  # Ensure you define or replace `redirect_url` with your actual URL
-        'client_id' => config.GOOG_CLIENT_ID,        # Replace `client_id` with your Google client ID
+        'redirect_uri' => config.REDIRECT_URI, # Ensure you define or replace `redirect_url` with your actual URL
+        'client_id' => config.GOOG_CLIENT_ID, # Replace `client_id` with your Google client ID
         'access_type' => 'offline',
         'response_type' => 'code',
         'prompt' => 'consent',
@@ -24,11 +24,11 @@ module No2Date
         ].join(' ')
       }
       auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
-      redirect_uri = "#{auth_url}?#{URI.encode_www_form(query)}"
+      "#{auth_url}?#{URI.encode_www_form(query)}"
     end
 
     route('auth') do |routing|
-      puts "AUTH ROUTE"
+      puts 'AUTH ROUTE'
       @oauth_callback = '/auth/sso_callback'
       @login_route = '/auth/login'
       routing.is 'login' do
@@ -156,34 +156,34 @@ module No2Date
     end
 
     route('sso_callback') do |routing|
-        # GET /sso_callback
-        routing.get do
-          puts "controllers auth.rb SSO CALLBACK"
-          puts "SSO CALLBACK: #{routing.params['code']}"
+      # GET /sso_callback
+      routing.get do
+        puts 'controllers auth.rb SSO CALLBACK'
+        puts "SSO CALLBACK: #{routing.params['code']}"
 
-          authorized = AuthorizeGoogleAccount
-                       .new(App.config)
-                       .call(routing.params['code'])
+        authorized = AuthorizeGoogleAccount
+                     .new(App.config)
+                     .call(routing.params['code'])
 
-          current_account = Account.new(
-            authorized[:account],
-            authorized[:auth_token]
-          )
+        current_account = Account.new(
+          authorized[:account],
+          authorized[:auth_token]
+        )
 
-          CurrentSession.new(session).current_account = current_account
+        CurrentSession.new(session).current_account = current_account
 
-          flash[:notice] = "Welcome #{current_account.username}!"
-          routing.redirect "/" # should redirect to appointments
-        rescue AuthorizeGoogleAccount::UnauthorizedError
-          flash[:error] = 'Could not login with Google'
-          response.status = 403
-          routing.redirect @login_route
-        rescue StandardError => e
-          puts "SSO LOGIN ERROR: #{e.inspect}\n#{e.backtrace}"
-          flash[:error] = 'Unexpected API Error'
-          response.status = 500
-          routing.redirect @login_route
-        end
+        flash[:notice] = "Welcome #{current_account.username}!"
+        routing.redirect '/' # should redirect to appointments
+      rescue AuthorizeGoogleAccount::UnauthorizedError
+        flash[:error] = 'Could not login with Google'
+        response.status = 403
+        routing.redirect @login_route
+      rescue StandardError => e
+        puts "SSO LOGIN ERROR: #{e.inspect}\n#{e.backtrace}"
+        flash[:error] = 'Unexpected API Error'
+        response.status = 500
+        routing.redirect @login_route
       end
+    end
   end
 end

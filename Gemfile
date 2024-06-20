@@ -4,14 +4,14 @@ source 'https://rubygems.org'
 
 # Web
 gem 'erb'
+gem 'httparty'
 gem 'puma'
 gem 'rack-session'
 gem 'redis-rack'
 gem 'redis-store'
 gem 'roda'
-gem 'slim'
-gem 'httparty'
 gem 'sinatra'
+gem 'slim'
 
 # Configuration
 gem 'figaro'
@@ -28,8 +28,8 @@ gem 'rbnacl', '~>7.1' # assumes libsodium package already installed
 gem 'secure_headers'
 
 # Encoding
-gem 'base64'
 gem 'activesupport'
+gem 'base64'
 
 # Debugging
 gem 'pry'

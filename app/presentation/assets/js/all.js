@@ -47,14 +47,3 @@ weekDates.forEach(date => {
     </div>
   `;
 });
-
-// register.erb
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('register-form').addEventListener('submit', function(event) {
-    var termsCheckbox = document.getElementById('terms');
-    if (!termsCheckbox.checked) {
-      alert('You must agree to the Terms and Conditions to sign up.');
-      event.preventDefault(); // alert message to prevent submit
-    }
-  });
-});
