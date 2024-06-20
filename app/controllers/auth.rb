@@ -158,7 +158,7 @@ module No2Date
     route('sso_callback') do |routing|
         # GET /sso_callback
         routing.get do
-          puts "SSO CALLBACK"
+          puts "controllers auth.rb SSO CALLBACK"
           puts "SSO CALLBACK: #{routing.params['code']}"
 
           authorized = AuthorizeGoogleAccount
