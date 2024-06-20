@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'roda'
-require_relative './app'
+require_relative 'app'
 
 module No2Date
   # Web controller for No2Date API
@@ -55,7 +55,7 @@ module No2Date
                             message: 'Removed participant from project' }
             }
 
-            puts "appointments.rb after task_list"
+            puts 'appointments.rb after task_list'
             puts "appointments.rb task_list: #{task_list}"
 
             task = task_list[action]
@@ -66,7 +66,6 @@ module No2Date
               appointment_id: appt_id
             )
             flash[:notice] = task[:message]
-
           rescue StandardError
             flash[:error] = 'Could not find participant'
           ensure

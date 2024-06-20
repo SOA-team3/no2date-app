@@ -17,7 +17,7 @@
             <% if appointment.description.nil? %>
               <dd class="blockquote text-gray-400">No description</dd>
             <% else %>
-              <div class="bg-gray-100 p-4 rounded mt-2 overflow-auto h-72 relative dark:bg-slate-800 dark:highlight-white/5 ring-1 ring-black/5 rounded-xl flex flex-col divide-y dark:divide-slate-200/5">
+              <div class="bg-gray-100 p-4 rounded mt-2 overflow-auto h-20 relative dark:bg-slate-800 dark:highlight-white/5 ring-1 ring-black/5 rounded-xl flex flex-col divide-y dark:divide-slate-200/5">
                 <dd class="blockquote text-base"><%= appointment.description %></dd>
               </div>
             <% end %>
@@ -55,6 +55,7 @@
                 </div>
               <% end %>
 
+
               <!-- Add participant Modal body -->
               <form class="p-4 md:p-5" role="form" action="/appointments/<%=appointment.id%>/participants" method="post" id="new-participant-form">
                 <div class="gap-4 mb-4 grid-cols-2">
@@ -74,24 +75,25 @@
             </div>
           </div>
         </div>
-
+        <hr class="h-1 bg-gray-300">
         <!-- add participant Modal end -->
 
         <!-- Show participant content start -->
-        <div class="col-lg-3">
+        <div class="col-lg-12">
           <div class="panel panel-default">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <%# <div class="panel-heading"><strong>Participants:</strong></div> %>
               <div class="panel-body">
                 <% if appointment.participants.empty? %>
-                  <span class="small">There are no participants yet</span>
+                  <div class="flex justify-center items-center mx-auto">
+                    There are no participants yet...
+                  </div>
                 <% else %>
                   <tbody id="participant-table-body">
                     <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" owner-row-id="1">
                       <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         Owner
                       </th>
-                      <td class="px-6 py-4">
+                      <td class="px-6 py-4 text-center">
                         <%= appointment.owner.username %>
                       <td>
                     </tr>
@@ -101,7 +103,7 @@
                         <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                           Participant <%= index+1%>
                         </th>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-center">
                           <%= participant.username %>
                         </td>
                         <td class="px-6 py-4">
@@ -110,8 +112,10 @@
                               <form role="form" method="post" action="/appointments/<%= appointment.id %>/participants">
                                 <input type="hidden" name="action" value="remove">
                                 <input type="hidden" name="email" value="<%= participant.email %>">
-                                <button type="submit" class="btn btn-xs btn-default">
-                                  <span class="fas fa-user-times"></span>
+                                <button type="submit" class="">
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <path d="M10.375 2.25a4.125 4.125 0 1 0 0 8.25 4.125 4.125 0 0 0 0-8.25ZM10.375 12a7.125 7.125 0 0 0-7.124 7.247.75.75 0 0 0 .363.63 13.067 13.067 0 0 0 6.761 1.873c2.472 0 4.786-.684 6.76-1.873a.75.75 0 0 0 .364-.63l.001-.12v-.002A7.125 7.125 0 0 0 10.375 12ZM16 9.75a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5h-6Z" />
+                                  </svg>
                                 </button>
                               </form>
                             </span>
@@ -119,8 +123,7 @@
                         </td>
                       </tr>
                     <% end %>
-                    </tbody>
-
+                  </tbody>
 
                 <% end %>
 

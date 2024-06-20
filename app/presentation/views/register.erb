@@ -32,16 +32,55 @@
                     <input type="text" name='email' id='email_input' class="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Email" aria-label="Email" aria-describedby="email-addon" />
                   </div>
 
+                  <!-- Policy Agreement-->
                   <div class="flex justify-center min-h-6 pl-6.92 mb-0.5 block">
-                    <input type="checkbox" id="terms" class="mr-2 w-4.92 h-4.92 ease-soft -ml-6.92 rounded-1.4 checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:text-xxs after:font-awesome after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all after:content-['\f00c'] checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100" />
-                    <label class="mb-2 ml-1 font-normal cursor-pointer select-none text-sm text-slate-700" for="terms"> I agree the <a href="javascript:;" class="font-bold text-slate-700">Terms and Conditions</a> </label>
+                    <div class="form-check">
+                      <input type="checkbox" id="terms" class="mr-2 w-4.92 h-4.92 ease-soft -ml-6.92 rounded-1.4 checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:text-xxs after:font-awesome after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all after:content-['\f00c'] checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100" />
+                      <label class="form-check-label" for="terms">
+                        I agree the <a href="#" class="font-bold text-slate-700" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
+                      </label>
+                    </div>
                   </div>
 
+                  <!-- Policy Modal -->
+                  <%# <div class="modal" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p><strong>Account:</strong></p>
+                          <ul>
+                            <li>View, Edit, Delete: Allowed if the user is the account owner.</li>
+                          </ul>
+                          <p><strong>Appointment:</strong></p>
+                          <ul>
+                            <li>View, Edit: Allowed for owners and participants.</li>
+                            <li>Delete, Add Participants, Remove Participants: Allowed for owners.</li>
+                            <li>Leave: Allowed for participants.</li>
+                            <li>Participate: Allowed for non-owners and non-participants.</li>
+                          </ul>
+                          <p><strong>Event:</strong></p>
+                          <ul>
+                            <li>View, Edit, Delete: Allowed for event owners.</li>
+                          </ul>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div> %>
+
+
+                  <!-- Submit -->
                   <div class="text-center">
                     <button type="submit" id='registration-start-form-submit' value='submit' class="inline-block w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800 hover:border-slate-700 hover:bg-slate-700 hover:text-white">Sign up</button>
                   </div>
 
-                  <%# <script>
+                  <script>
                     document.addEventListener('DOMContentLoaded', function() {
                       document.getElementById('register-form').addEventListener('submit', function(event) {
                         var termsCheckbox = document.getElementById('terms');
@@ -51,8 +90,8 @@
                         }
                       });
                     });
-                  </script> %>
-                <script src="../assets/js/all.js" async></script>
+                  </script>
+
                 </form>
 
 

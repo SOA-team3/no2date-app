@@ -21,7 +21,7 @@ class GetAccountDetails
     raise InvalidAccount if response.code != 200
 
     data = JSON.parse(response)['data']
-    puts "GetAccountDetails: #{response.to_s}"
+    puts "GetAccountDetails: #{response}"
     account_details = data['attributes']['account']
     auth_token = data['attributes']['auth_token']
     No2Date::Account.new(account_details, auth_token)

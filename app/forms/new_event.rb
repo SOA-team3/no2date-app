@@ -7,6 +7,7 @@ require 'active_support/time'
 
 module No2Date
   module Form
+    # New Event
     class NewEvent < Dry::Validation::Contract
       config.messages.load_paths << File.join(__dir__, 'errors/new_event.yml')
 
