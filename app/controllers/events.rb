@@ -47,9 +47,13 @@ module No2Date
           evnt_params = routing.params
           # Convert datetime-local input to required format
           if evnt_params['start_datetime'] && evnt_params['end_datetime']
-            time_zone = "Asia/Taipei"  # You can adjust this to your desired time zone
-            evnt_params['start_datetime'] = Time.parse(evnt_params['start_datetime']).in_time_zone(time_zone).strftime("%Y-%m-%d %H:%M:%S %z")
-            evnt_params['end_datetime'] = Time.parse(evnt_params['end_datetime']).in_time_zone(time_zone).strftime("%Y-%m-%d %H:%M:%S %z")
+            time_zone = "Asia/Taipei"  # Adjust this to your desired time zone
+
+            start_time = Time.parse(evnt_params['start_datetime']).in_time_zone(time_zone)
+            end_time = Time.parse(evnt_params['end_datetime']).in_time_zone(time_zone)
+
+            evnt_params['start_datetime'] = start_time.strftime("%Y-%m-%d %H:%M:%S")
+            evnt_params['end_datetime'] = end_time.strftime("%Y-%m-%d %H:%M:%S")
           end
           # puts "EVNT: #{evnt_params}"
 
