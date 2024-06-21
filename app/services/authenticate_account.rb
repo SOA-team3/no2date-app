@@ -10,15 +10,15 @@ module No2Date
     class ApiServerError < StandardError; end
 
     def call(username:, password:)
-      credentials = { username: username, password: password }
+      credentials = { username:, password: }
 
-      response = HTTP.post("#{ENV['API_URL']}/auth/authenticate",
+      response = HTTP.post("#{ENV.fetch('API_URL', nil)}/auth/authenticate",
                            json: SignedMessage.sign(credentials))
 
       raise(NotAuthenticatedError) if response.code == 401
       raise(ApiServerError) if response.code != 200
 
-      puts "authenticate_account.rb - response.to_s: #{response.to_s}"
+      puts "authenticate_account.rb - response.to_s: #{response}"
       account_info = JSON.parse(response.to_s)['data']['attributes']
 
       { account: account_info['account'],

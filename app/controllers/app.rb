@@ -46,20 +46,20 @@ module No2Date
       # GET /
       if @current_account.logged_in?
         event_list = GetAllEvents.new(App.config).call(@current_account)
-        if event_list.nil?
-          events = []
-        else
-          events = Events.new(event_list)
-        end
+        events = if event_list.nil?
+                   []
+                 else
+                   Events.new(event_list)
+                 end
 
         routing.root do
           view :home,
-                locals: { current_account: @current_account, events: }
+               locals: { current_account: @current_account, events: }
         end
 
       else
         routing.root do
-          view :home, locals: { current_account: @current_account}
+          view :home, locals: { current_account: @current_account }
         end
       end
     end

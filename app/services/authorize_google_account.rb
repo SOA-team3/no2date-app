@@ -21,7 +21,7 @@ module No2Date
 
     def call(code)
       get_access_token_from_google(code)
-      get_sso_account_from_api()
+      get_sso_account_from_api
     end
 
     private
@@ -42,12 +42,12 @@ module No2Date
 
       options = {
         body: URI.encode_www_form({
-          code: code,
-          client_id: @config.GOOG_CLIENT_ID,          # Ensure you have defined `client_id`
-          client_secret: @config.GOOG_CLIENT_SECRET,  # Ensure you have defined `client_secret`
-          redirect_uri: @config.REDIRECT_URI,    # Ensure you define or replace `redirect_url` with your actual URL
-          grant_type: 'authorization_code'
-        }),
+                                    code:,
+                                    client_id: @config.GOOG_CLIENT_ID,          # Ensure you have defined `client_id`
+                                    client_secret: @config.GOOG_CLIENT_SECRET,  # Ensure you have defined `client_secret`
+                                    redirect_uri: @config.REDIRECT_URI, # Ensure you define or replace `redirect_url` with your actual URL
+                                    grant_type: 'authorization_code'
+                                  }),
         headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
       }
 
@@ -63,15 +63,19 @@ module No2Date
       puts "get_sso_account_from_api, @access_token: #{@access_token}, @id_token: #{@id_token}"
 
       signed_sso_info = { access_token: @access_token, id_token: @id_token }
-        .then { |sso_info| SignedMessage.sign(sso_info) }
+                        .then { |sso_info| SignedMessage.sign(sso_info) }
 
       response = HTTP.post(
         "#{@config.API_URL}/auth/sso",
         json: signed_sso_info
       )
 
+<<<<<<< HEAD
       puts "get_sso_account_from_api: response: #{response}"
       puts "get_sso_account_from_api: response.body: #{response.body}"
+=======
+      JSON.parse(response)['data']['attributes']
+>>>>>>> a791e27b450022e12265f0bfa182feefecbb723b
 
 
       account_info = JSON.parse(response)['data']['attributes']

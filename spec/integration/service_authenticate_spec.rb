@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 require_relative '../spec_helper'
@@ -49,6 +48,5 @@ describe 'Test Service Objects' do
         No2Date::AuthenticateAccount.new.call(**@mal_credentials)
       }).must_raise No2Date::AuthenticateAccount::NotAuthenticatedError
     end
-
   end
 end

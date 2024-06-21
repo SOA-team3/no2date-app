@@ -11,7 +11,7 @@ module No2Date
 
     def call(current_account, evnt_id)
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                    .get("#{@config.API_URL}/events/#{evnt_id}")
+                     .get("#{@config.API_URL}/events/#{evnt_id}")
       puts "service/GetEvent JSON.parse(response.body.to_s)['data']: #{JSON.parse(response.body.to_s)['data']}"
 
       response.code == 200 ? JSON.parse(response.body.to_s)['data'] : nil

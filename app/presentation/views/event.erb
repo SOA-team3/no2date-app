@@ -72,7 +72,7 @@
             <%if event.description.nil? %>
               <dd class="text-gray-900">No description</dd>
             <%else%>
-              <div class="bg-gray-100 p-4 rounded mt-2">
+              <div class="bg-gray-100 p-4 rounded mt-2 overflow-auto h-72 relative dark:bg-slate-800 dark:highlight-white/5 ring-1 ring-black/5 rounded-xl flex flex-col divide-y dark:divide-slate-200/5">
                 <dd class="text-gray-900"><%= event.description %></dd>
               </div>
             <%end%>
