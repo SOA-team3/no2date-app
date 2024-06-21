@@ -70,12 +70,7 @@ module No2Date
         json: signed_sso_info
       )
 
-<<<<<<< HEAD
-      puts "get_sso_account_from_api: response: #{response}"
-      puts "get_sso_account_from_api: response.body: #{response.body}"
-=======
       JSON.parse(response)['data']['attributes']
->>>>>>> a791e27b450022e12265f0bfa182feefecbb723b
 
 
       account_info = JSON.parse(response)['data']['attributes']
