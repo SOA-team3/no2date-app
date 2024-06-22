@@ -47,10 +47,12 @@ module No2Date
           evnt_params = routing.params
           # Convert datetime-local input to required format
           if evnt_params['start_datetime'] && evnt_params['end_datetime']
-            time_zone_offset = "+0800"  # Adjust this to your desired time zone offset
+            time_zone_offset = '+0800' # Adjust this to your desired time zone offset
 
-            evnt_params['start_datetime'] = "#{Time.parse(evnt_params['start_datetime']).strftime('%Y-%m-%d %H:%M:%S')} #{time_zone_offset}"
-            evnt_params['end_datetime'] = "#{Time.parse(evnt_params['end_datetime']).strftime('%Y-%m-%d %H:%M:%S')} #{time_zone_offset}"
+            evnt_params['start_datetime'] =
+              "#{Time.parse(evnt_params['start_datetime']).strftime('%Y-%m-%d %H:%M:%S')} #{time_zone_offset}"
+            evnt_params['end_datetime'] =
+              "#{Time.parse(evnt_params['end_datetime']).strftime('%Y-%m-%d %H:%M:%S')} #{time_zone_offset}"
           end
           # puts "EVNT: #{evnt_params}"
 
