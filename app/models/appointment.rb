@@ -45,8 +45,6 @@ module No2Date
     def process_free_time_of_appointment(free_time_of_appointment)
       return nil unless free_time_of_appointment
 
-      puts "appointment.rb #{free_time_of_appointment}"
-
       @free_time_of_appointment = free_time_of_appointment
     end
 

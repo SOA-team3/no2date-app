@@ -14,7 +14,6 @@ module No2Date
     end
 
     def call(current_account:, participant:, appointment_id:)
-      puts "add_participant.rb #{participant.inspect}"
       response = HTTP.auth("Bearer #{current_account.auth_token}")
                      .put("#{api_url}/appointments/#{appointment_id}/participants",
                           json: { email: participant[:email] })

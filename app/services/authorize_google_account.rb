@@ -38,8 +38,6 @@ module No2Date
       # JSON.parse(challenge_response)['access_token']
       # Assuming the code is passed as a query parameter to the callback URL
 
-      puts "get_access_token_from_google: code: #{code}"
-
       options = {
         body: URI.encode_www_form({
                                     code:,
@@ -60,8 +58,6 @@ module No2Date
     end
 
     def get_sso_account_from_api
-      puts "get_sso_account_from_api, @access_token: #{@access_token}, @id_token: #{@id_token}"
-
       signed_sso_info = { access_token: @access_token, id_token: @id_token }
                         .then { |sso_info| SignedMessage.sign(sso_info) }
 
@@ -72,10 +68,7 @@ module No2Date
 
       JSON.parse(response)['data']['attributes']
 
-
       account_info = JSON.parse(response)['data']['attributes']
-
-      puts "authorize_google_account.rb: account_info: #{account_info}"
 
       {
         account: account_info['account'],
