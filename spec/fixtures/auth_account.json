@@ -1,0 +1,12 @@
+{"data":
+    {"type":"authenticated_account",
+    "attributes":
+        {"account":
+            {"type":"account",
+            "attributes":
+                {"username":"brian",
+                "email":"brian2000890714@gmail.com"}
+            },
+        "auth_token":"sL9HWWW8A_VnmQc_5vOKIY_GTzilJJXoRdkRPEoWPRj3xZ3_XkzMFRboVniMkXxj6r6R-Voby19ft6f3gcHfqGA-cjmv1mZRagSDA5EHYbefsu4ZzOW5wBMvaVbMBrzm-eswjXuXz9oAqVRCog6AGGpFuYEp8MYB0DupJ_Ab1vcXd0doV1LbHj7mpmfCdOe4qbb4HIcSkaTLvS81A9XJbbVQH-cHZpd_f-3WWqnS"}
+    }
+}

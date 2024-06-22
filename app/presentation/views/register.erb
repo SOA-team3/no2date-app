@@ -1,0 +1,119 @@
+<body class="m-0 font-sans antialiased font-normal bg-white text-start text-base leading-default text-slate-500">
+
+  <main class="mt-0 transition-all duration-200 ease-soft-in-out">
+    <section class="min-h-screen mb-32">
+      <div class="relative flex items-start pt-12 pb-56 m-4 overflow-hidden bg-center bg-cover min-h-50-screen rounded-xl" >
+        <img src="/curved14.jpg" alt="No2Date Logo" class="absolute inset-0 w-full h-full object-cover object-center" />
+        <span class="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-gray-900 to-slate-800 opacity-60"></span>
+        <div class="container z-10">
+          <div class="flex flex-wrap justify-center -mx-3">
+            <div class="w-full max-w-full px-3 mx-auto mt-0 text-center lg:flex-0 shrink-0 lg:w-5/12">
+              <h1 class="mt-12 mb-2 text-white">Welcome!</h1>
+              <p class="text-white">Login or create new account.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="flex flex-wrap -mx-3 -mt-48 md:-mt-56 lg:-mt-48">
+          <div class="w-full max-w-full px-3 mx-auto mt-0 md:flex-0 shrink-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
+            <div class="relative z-0 flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
+              <div class="p-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
+                  <h3>Register with</h3>
+              </div>
+              <hr class="h-1 bg-gray-300">
+              <!-- form location -->
+              <div class="flex-auto p-6" >
+                <form role="form text-left" action='/auth/register' method='post' id='register-form'>
+                  <div class="mb-4">
+                    <input type="text" name='username' id='username_input' class="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Username" aria-label="Username" aria-describedby="email-addon" />
+                  </div>
+                  <div class="mb-4">
+                    <input type="text" name='email' id='email_input' class="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Email" aria-label="Email" aria-describedby="email-addon" />
+                  </div>
+
+                  <div class="p-4">
+                    <input id="terms" class="form-check-input" type="checkbox" value="">
+                    <label class="form-check-label ml-2" for="terms">
+                      I agree the <a href="#" class="font-bold text-gray-700" onclick="openModal('termsModal')">Terms and Conditions</a>
+                    </label>
+                  </div>
+
+                  <!-- Modal -->
+                  <div id="termsModal" class="container z-50 fixed inset-0 overflow-y-auto px-4 py-6 flex items-center justify-center z-50 hidden">
+                    <div class="modal-content bg-white rounded-lg shadow-lg max-w-lg mx-auto p-6">
+                        <div class="modal-header flex justify-between items-center">
+                            <h5 class="modal-title text-xl font-semibold">Terms and Conditions</h5>
+                        </div>
+                        <div class="modal-body mt-4">
+                            <p><strong>Account:</strong></p>
+                            <ul class="list-disc pl-5">
+                                <li>View, Edit, Delete: Allowed if the user is the account owner.</li>
+                            </ul>
+                            <p><strong>Appointment:</strong></p>
+                            <ul class="list-disc pl-5">
+                                <li>View, Edit: Allowed for owners and participants.</li>
+                                <li>Delete, Add Participants, Remove Participants: Allowed for owners.</li>
+                                <li>Leave: Allowed for participants.</li>
+                                <li>Participate: Allowed for non-owners and non-participants.</li>
+                            </ul>
+                            <p><strong>Event:</strong></p>
+                            <ul class="list-disc pl-5">
+                                <li>View, Edit, Delete: Allowed for event owners.</li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer mt-4 flex justify-end">
+                            <button type="button" class="px-6 py-2.5 rounded-md text-black text-sm font-semibold border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200" onclick="closeModal('termsModal')">Close</button>
+                        </div>
+                    </div>
+                  </div>
+
+                <script>
+                    function openModal(id) {
+                        document.getElementById(id).classList.remove('hidden');
+                    }
+
+                    function closeModal(id) {
+                        document.getElementById(id).classList.add('hidden');
+                    }
+                </script>
+
+
+                  <!-- Submit -->
+                  <div class="text-center">
+                    <button type="submit" id='registration-start-form-submit' value='submit' class="inline-block w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800 hover:border-slate-700 hover:bg-slate-700 hover:text-white">Sign up</button>
+                  </div>
+
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                      document.getElementById('register-form').addEventListener('submit', function(event) {
+                        var termsCheckbox = document.getElementById('terms');
+                        if (!termsCheckbox.checked) {
+                          alert('You must agree to the Terms and Conditions to sign up.');
+                          event.preventDefault(); // alert message to prevent submit
+                        }
+                      });
+                    });
+                  </script>
+
+                </form>
+
+
+                <div class="p-6 px-1 pt-0 text-center bg-transparent border-t-0 border-t-solid rounded-b-2xl lg:px-2">
+                  <p class="mt-4 mb-0 leading-normal text-sm">
+                    Already have an account?
+                    <a href="/auth/login" class="font-bold text-slate-700">Sign in</a>
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+
