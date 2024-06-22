@@ -1,8 +1,0 @@
-en:
-  errors:
-    name: 'Event name must be filled'
-    filename_valid?: 'filename has illegal characters (e.g., & | \\ / <tab>'
-    path_chars?: 'relative path has illegal characters (e.g., & | <tab>)'
-    description: 'provide a description'
-    # content?
-    content: 'provide content for event'
